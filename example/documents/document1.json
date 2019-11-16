@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "name",
+      "value": "ExampleName"
+    },
+    {
+      "id": "howmany",
+      "value": 5
+    },
+    {
+      "id": "selects-option",
+      "value": "s-2"
+    },
+    {
+      "id": "info",
+      "value": "someinfo"
+    }
+  ]
+}

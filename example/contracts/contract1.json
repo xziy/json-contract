@@ -1,0 +1,90 @@
+{
+  "name": "Example1",
+  "locale": "EN",
+  "description": "Some text here",
+  "specificationMinVersion": 1,
+  "prefix": "E1",
+  "badge": "example_1",
+  "price": 100,
+  "currency": "USD",
+  "start": 1572474505,
+  "finish": 1672474505,
+  "revision": 1,
+  "deliveryTime": 24,
+  "options": [
+    {
+      "id": "name",
+      "type": "string",
+      "maxLength": 36,
+      "regex": "^[a-zA-Z]+$",
+      "label": "Name",
+      "description": "Some text here",
+      "anyData": "MY_BEST_FRONT_NAME_COMPONENT",
+      "isRequired": true
+    },
+    {
+      "id": "howmany",
+      "label": "How Many?",
+      "description": "Some text here",
+      "type": "number",
+      "maxLength": 3,
+      "anyData": "MY_BEST_FRONT_DIGIT_COMPONENT",
+      "min": -1,
+      "max": 999,
+      "regex": "[0-9]",
+      "isRequired": true
+    },
+    {
+      "id": "selects-option",
+      "label": "manual?",
+      "description": "Some text here",
+      "type": "select",
+      "anyData": "MY_BEST_select_DIGIT_COMPONENT",
+      "options": [
+        {
+          "id": "s-1",
+          "type": "radio",
+          "label": "option 1",
+          "description": "Some text here",
+          "anyData": "radio",
+          "modifyDeliveryTime": {
+            "increase": 12
+          },
+          "modifyPrice": {
+            "increase": 15
+          },
+          "options": [
+            {
+              "id": "info",
+              "type": "string",
+              "maxLength": 20,
+              "regex": "^[a-zA-Z]+$",
+              "label": "Additional info",
+              "description": "Some text here",
+              "anyData": "MY_BEST_FRONT_NAME_COMPONENT",
+              "isRequired": true
+            }
+          ]
+        },
+        {
+          "id": "s-2",
+          "type": "radio",
+          "label": "option 3",
+          "description": "Some text here",
+          "anyData": "radio",
+          "modifyDeliveryTime": {
+            "decrease": 12
+          },
+          "modifyPrice": {
+            "set": 120
+          },
+          "setCustomProperties": [
+            {
+              "isManual": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

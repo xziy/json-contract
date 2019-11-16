@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "select-option",
+      "value": "so-1"
+    },
+    {
+      "id": "message",
+      "value": "string"
+    },
+    {
+      "id": "info",
+      "value": "some info"
+    }
+  ]
+}

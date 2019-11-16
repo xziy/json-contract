@@ -1,0 +1,78 @@
+{
+  "name": "Example3",
+  "locale": "EN",
+  "description": "Some text here",
+  "specificationMinVersion": 1,
+  "prefix": "E3",
+  "badge": "example_3",
+  "price": 100,
+  "currency": "USD",
+  "start": 1572474505,
+  "finish": 1672474505,
+  "revision": 1,
+  "deliveryTime": 24,
+  "options": [
+    {
+      "id": "select-option",
+      "label": "select option example",
+      "description": "Some text here",
+      "type": "select",
+      "anyData": "MY_BEST_select_DIGIT_COMPONENT",
+      "options": [
+        {
+          "id": "so-1",
+          "label": "option 1",
+          "description": "Some text here",
+          "anyData": "radio",
+          "modifyDeliveryTime": {
+            "increase": 12
+          },
+          "modifyPrice": {
+            "increase": 15
+          },
+          "showOptionsById": [
+            "message"
+          ],
+          "options": [
+            {
+              "id": "info",
+              "type": "string",
+              "maxLength": 20,
+              "regex": "^[a-zA-Z ]+$",
+              "label": "Additional info",
+              "description": "Some text here",
+              "anyData": "MY_BEST_FRONT_NAME_COMPONENT",
+              "isRequired": true
+            }
+          ]
+        },
+        {
+          "id": "so-2",
+          "label": "option 2",
+          "description": "Some text here",
+          "anyData": "radio",
+          "setCustomProperties": {
+            "isManual": true
+          },
+          "changeProperties": {
+            "prefix": "E3+"
+          },
+          "hideOptionsById": [
+            "message"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "message",
+      "type": "string",
+      "maxLength": 100,
+      "regex": "^\\w+$",
+      "label": "Message to develper",
+      "description": "Some text here",
+      "anyData": "MY_BEST_FRONT_NAME_COMPONENT",
+      "isRequired": false,
+      "isHidden": true
+    }
+  ]
+}

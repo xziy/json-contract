@@ -1,0 +1,86 @@
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var Document_1 = require("../core/Document");
+var ProductContractD_1 = require("./ProductContractD");
+var util_1 = require("../lib/util");
+var DocumentD = (function (_super) {
+    __extends(DocumentD, _super);
+    function DocumentD(productContract, values, args) {
+        var _this = _super.call(this, productContract, values, args) || this;
+        _this.discountContracts = [];
+        _this.productContract = productContract;
+        _this.productContractModified = productContract.clone();
+        return _this;
+    }
+    DocumentD.build = function (_a) {
+        var productContract = _a.productContract, values = _a.values, args = __rest(_a, ["productContract", "values"]);
+        var valuesObj = values.map(function (v) { return new Document_1.Value(v.id, v.value); });
+        productContract = ProductContractD_1.default.build(productContract);
+        return new DocumentD(productContract, valuesObj, util_1.objectToProperties(args));
+    };
+    DocumentD.prototype.processing = function (contract) {
+        this.productContractModified = (contract || this.productContract).clone();
+        for (var _i = 0, _a = this.discountContracts; _i < _a.length; _i++) {
+            var discount = _a[_i];
+            if (discount.isActive(this)) {
+                discount.activate(this);
+                if (!this.productContractModified.discountCumulativeAllowed)
+                    break;
+            }
+        }
+        return _super.prototype.processing.call(this, this.productContractModified);
+    };
+    DocumentD.prototype.addDiscount = function (discount) {
+        if (!discount.isActive(this))
+            return false;
+        if (!this.productContract.discountAllowed)
+            return false;
+        this.discountContracts.push(discount);
+        this.productContractModified = this.productContract.clone();
+        for (var _i = 0, _a = this.discountContracts; _i < _a.length; _i++) {
+            var discount_1 = _a[_i];
+            discount_1.activate(this);
+            if (!this.productContractModified.discountCumulativeAllowed)
+                break;
+        }
+        return true;
+    };
+    DocumentD.prototype.dry = function () {
+        var res = {};
+        for (var i in this) {
+            if (i == 'productContract')
+                res.productContract = this.productContract.contractId;
+            else if (i == 'discountContracts')
+                res.discountContracts = this.discountContracts.map(function (d) { return d.id; });
+            else if (this.hasOwnProperty(i) && i != 'productContractModified')
+                res[i] = this[i];
+        }
+        return res;
+    };
+    return DocumentD;
+}(Document_1.default));
+exports.default = DocumentD;

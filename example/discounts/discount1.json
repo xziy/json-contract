@@ -1,0 +1,53 @@
+{
+  "id": "D1",
+  "name": "Discount1",
+  "conditions": [
+    {
+      "AND": [
+        {
+          "where": [
+            {
+              "property": "currency",
+              "value": "USD"
+            }
+          ]
+        },
+        {
+          "where": [
+            {
+              "property": "prefix",
+              "value": "E4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "specificationMinVersion": 1,
+  "selects": [
+    {
+      "where": [
+        {
+          "property": "badge",
+          "value": "example_4"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "setDiscountInPercentage": 20,
+      "modifyPrice": {
+        "decrease": 10
+      }
+    },
+    {
+      "showOptionsById": [
+        "message"
+      ],
+      "changeProperties": {
+        "currency": "ABC"
+      }
+    }
+  ]
+}
