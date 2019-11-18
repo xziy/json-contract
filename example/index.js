@@ -157,11 +157,11 @@ function test5() {
 
   //create discount
   const discountJson1 = require('./discounts/discount1');
-  const d1 = DiscountContract.build(discountJson1);
-  log(d1, 'Discount Contract 1');
+  const dc1 = DiscountContract.build(discountJson1);
+  log(dc1, 'Discount Contract 1');
 
   // check discount is compatible with document and activate it
-  log(doc1.addDiscount(d1), 'add discount 1');
+  log(doc1.addDiscount(dc1), 'add discount 1');
   log(doc1, 'DocumentD 1');
 
   // processing
