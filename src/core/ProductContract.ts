@@ -140,7 +140,7 @@ export default class ProductContract extends Form implements ProductContractBuil
   }
 
   /**
-   * Создаёт глубокую копию текущего екземпляра
+   * Создаёт глубокую копию текущего экземпляра
    */
   public clone(): ProductContract {
     return ProductContract.build(this.getJSON());

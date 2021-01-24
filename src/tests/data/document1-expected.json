@@ -1,0 +1,21 @@
+{
+  "values": [
+    {
+      "id": "stringOption",
+      "value": "someString"
+    },
+    {
+      "id": "numberOption",
+      "value": 5
+    },
+    {
+      "id": "selectOption",
+      "value": "s-1"
+    },
+    {
+      "id": "info",
+      "value": "someinfo"
+    }
+  ],
+  "controlHash": ""
+}

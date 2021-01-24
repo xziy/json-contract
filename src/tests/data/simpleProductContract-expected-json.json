@@ -12,34 +12,37 @@
   "revision": 1,
   "deliveryTime": 24,
   "someSpecificData": "specific data",
+  "controlHash": "",
   "options": [
     {
       "id": "stringOption",
       "type": "string",
-      "maxLength": 10,
+      "maxLength": 30,
       "regex": "^[a-zA-Z0-9]+$",
       "label": "String option",
       "description": "String here",
-      "isRequired": true
+      "isRequired": true,
+      "isHidden": false
     },
     {
       "id": "numberOption",
       "label": "Number option",
       "description": "Number here",
       "type": "number",
-      "maxLength": 3,
-      "regex": "[0-9]",
-      "isRequired": true
+      "regex": "^[0-9]+$",
+      "isRequired": false,
+      "isHidden": false
     },
     {
-      "id": "selects-option",
+      "id": "selectOption",
       "label": "Select option",
       "description": "Select here",
       "type": "select",
+      "isHidden": false,
+      "isRequired": true,
       "options": [
         {
           "id": "s-1",
-          "type": "radio",
           "label": "option 1",
           "description": "First option",
           "anyData": "radio",
@@ -52,7 +55,6 @@
         },
         {
           "id": "s-2",
-          "type": "radio",
           "label": "option 2",
           "description": "Second option",
           "anyData": "radio",
