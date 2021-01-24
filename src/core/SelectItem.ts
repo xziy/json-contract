@@ -9,7 +9,7 @@ import ProductContract from "./ProductContract";
  */
 export default class SelectItem {
   /**
-   * id екземпляра
+   * id экземпляра
    */
   id: string;
   /**
@@ -25,11 +25,11 @@ export default class SelectItem {
    */
   anyData?: string;
   /**
-   * Действия, которые следует выполнить при выборе текущего екземпляра
+   * Действия, которые следует выполнить при выборе текущего экземпляра
    */
   action: Action;
   /**
-   * Form, хранящий [[Option]][], которые следует отображать при выборе текузего экземпляра
+   * Form, хранящий [[Option]][], которые следует отображать при выборе текущего экземпляра
    */
   form: Form;
 

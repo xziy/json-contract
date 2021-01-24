@@ -5,7 +5,7 @@ import Reason from "./Reason";
  */
 export default class Option {
   /**
-   * id екземпляра. Указывается в [[Value.id]]
+   * id экземпляра. Указывается в [[Value.id]]
    */
   id: string;
   /**
@@ -13,7 +13,7 @@ export default class Option {
    * - string - строка
    * - number - цифра
    * - select - выбор из нескольких
-   * Подроности смотреть в классах наследниках
+   * Подробности смотреть в классах наследниках
    */
   type: string;
   /**
@@ -64,7 +64,7 @@ export default class Option {
   }
 
   /**
-   * Создаёт екземпляр [[Option]] из JSON. Если передать объект, то будет создана его копия.
+   * Создаёт экземпляр [[Option]] из JSON. Если передать объект, то будет создана его копия.
    * @param id - id
    * @param type - тип
    * @param label - подпись
@@ -78,9 +78,9 @@ export default class Option {
   }
 
   /**
-   * Создаёт екземпляр того класса, тип которого указан в type в параметре data.
+   * Создаёт экземпляр того класса, тип которого указан в type в параметре data.
    * Например, если data.type = 'number', то будет создан и отдан [[OptionNumber]].
-   * @param data - JSON объект для создания нового [[Option]] или екземпляр [[Option]] для клонирования
+   * @param data - JSON объект для создания нового [[Option]] или экземпляр [[Option]] для клонирования
    */
   public static getOption<T extends Option>(data: T): Option {
     switch (data.type) {

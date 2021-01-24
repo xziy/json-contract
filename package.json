@@ -16,6 +16,10 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0",
+    "should": "^13.2.3",
+    "sinon": "^9.2.3",
     "typedoc": "^0.15.0",
     "typedoc-plugin-markdown": "^2.2.11"
   }
