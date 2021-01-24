@@ -98,7 +98,7 @@ export default class SelectItem {
     };
     res.options = this.form.options.map(opt => opt.getJSON());
     res.modifyPrice = this.action.modifyPrice ? this.action.modifyPrice.getJSON() : undefined;
-    res.modifyDeliveryTime = this.action.modifyPrice ? this.action.modifyPrice.getJSON() : undefined;
+    res.modifyDeliveryTime = this.action.modifyDeliveryTime ? this.action.modifyDeliveryTime.getJSON() : undefined;
     res.setDiscountInPercentage = this.action.setDiscountInPercentage;
     res.hideOptionsById = this.action.hideOptionsById;
     res.showOptionsById = this.action.showOptionsById;

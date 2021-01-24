@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "gendoc": "typedoc --theme minimal --plugin none",
-    "gendocmd": "npx typedoc --plugin typedoc-plugin-markdown"
+    "gendocmd": "npx typedoc --plugin typedoc-plugin-markdown",
+    "build": "tsc"
   },
   "author": "Ilya Dolmatov",
   "license": "MIT",
@@ -16,6 +17,8 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@types/mocha": "^8.2.0",
+    "@types/sinon": "^9.0.10",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "should": "^13.2.3",
