@@ -3,11 +3,11 @@
 import {ProductContract} from "..";
 import 'should';
 
-const productContract1Data = require('./data/productContract1-data.json');
-const productContract1Expected = require('./data/productContract1-expected.json');
-const productContract1ExpectedJson = require('./data/productContract1-expected-json.json');
+const productContract1Data = require('./data/productContract-data.json');
+const productContract1Expected = require('./data/productContract-expected.json');
+const productContract1ExpectedJson = require('./data/productContract-expected-json.json');
 
-describe('Simple ProductContract usage', () => {
+describe('ProductContract', () => {
 
   it('should create correct contract from JSON', () => {
     const contract = ProductContract.build(productContract1Data);

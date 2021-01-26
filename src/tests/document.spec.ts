@@ -3,18 +3,17 @@
 import {Document} from "..";
 import should = require("should");
 import Reason from '../core/Reason';
-import {Value} from "../core/Document";
 
 const document1Data = require('./data/document1-data.json');
 const document1Expected = require('./data/document1-expected.json');
-const simpleProductContractData = require('./data/simpleProductContract-data.json');
-const simpleProductContractExpected = require('./data/simpleProductContract-expected.json');
+const simpleProductContractData = require('./data/productContract-data.json');
+const simpleProductContractExpected = require('./data/productContract-expected.json');
 const numberProductContract = require('./data/productContract-with-number-option.json');
 const stringProductContract = require('./data/productContract-with-string-option.json');
 const selectProductContractSimple = require('./data/productContract-with-simple-select-option.json');
 const selectProductContractComplex = require('./data/productContract-with-complex-select-option.json');
 
-describe('Simple Document', () => {
+describe('Document', () => {
 
   it('should correct create document from JSON', () => {
     document1Data.productContract = simpleProductContractData;
@@ -341,7 +340,7 @@ describe('Simple Document', () => {
       productContract: simpleProductContractData
     });
 
-    document.addOption('selectOption', 's-1');
+    document.addOption('selectOption', 's-1').should.be.true();
 
     document.values.should.match([{
       id: 'selectOption',
@@ -349,5 +348,19 @@ describe('Simple Document', () => {
     }]);
   });
 
-});
+  it('should add option in select options', () => {
+    const document = Document.build({
+      values: [],
+      productContract: selectProductContractComplex
+    });
 
+    document.addOption('selectOption', 'selectWithNumberString').should.be.true();
+    document.addOption('numberOptionRequired', 5).should.be.true();
+
+    document.values.should.match([{
+      id: 'selectOption',
+      value: 's-1'
+    }]);
+  })
+
+});

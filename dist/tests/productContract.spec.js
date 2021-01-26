@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var __1 = require("..");
 require("should");
-var productContract1Data = require('./data/simpleProductContract-data.json');
-var productContract1Expected = require('./data/simpleProductContract-expected.json');
-var productContract1ExpectedJson = require('./data/simpleProductContract-expected-json.json');
-describe('Simple ProductContract usage', function () {
+var productContract1Data = require('./data/productContract-data.json');
+var productContract1Expected = require('./data/productContract-expected.json');
+var productContract1ExpectedJson = require('./data/productContract-expected-json.json');
+describe('ProductContract', function () {
     it('should create correct contract from JSON', function () {
         var contract = __1.ProductContract.build(productContract1Data);
         contract.should.match(productContract1Expected);

@@ -41,13 +41,13 @@ var should = require("should");
 var Reason_1 = require("../core/Reason");
 var document1Data = require('./data/document1-data.json');
 var document1Expected = require('./data/document1-expected.json');
-var simpleProductContractData = require('./data/simpleProductContract-data.json');
-var simpleProductContractExpected = require('./data/simpleProductContract-expected.json');
+var simpleProductContractData = require('./data/productContract-data.json');
+var simpleProductContractExpected = require('./data/productContract-expected.json');
 var numberProductContract = require('./data/productContract-with-number-option.json');
 var stringProductContract = require('./data/productContract-with-string-option.json');
 var selectProductContractSimple = require('./data/productContract-with-simple-select-option.json');
 var selectProductContractComplex = require('./data/productContract-with-complex-select-option.json');
-describe('Simple Document', function () {
+describe('Document', function () {
     it('should correct create document from JSON', function () {
         document1Data.productContract = simpleProductContractData;
         var document = __1.Document.build(document1Data);
@@ -310,7 +310,19 @@ describe('Simple Document', function () {
             values: [],
             productContract: simpleProductContractData
         });
-        document.addOption('selectOption', 's-1');
+        document.addOption('selectOption', 's-1').should.be.true();
+        document.values.should.match([{
+                id: 'selectOption',
+                value: 's-1'
+            }]);
+    });
+    it('should add option in select options', function () {
+        var document = __1.Document.build({
+            values: [],
+            productContract: selectProductContractComplex
+        });
+        document.addOption('selectOption', 'selectWithNumberString').should.be.true();
+        document.addOption('numberOptionRequired', 5).should.be.true();
         document.values.should.match([{
                 id: 'selectOption',
                 value: 's-1'

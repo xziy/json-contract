@@ -63,16 +63,25 @@
           "description": "Select option",
           "options": [
             {
-              "id": "s-1",
-              "type": "radio",
-              "label": "option 1",
-              "description": "First option"
-            },
-            {
-              "id": "s-2",
-              "type": "radio",
-              "label": "option 2",
-              "description": "Second option"
+              "id": "selectOptionInner",
+              "label": "Select option",
+              "description": "Select here",
+              "type": "select",
+              "isRequired": true,
+              "options": [
+                {
+                  "id": "s-1",
+                  "type": "radio",
+                  "label": "option 1",
+                  "description": "First option"
+                },
+                {
+                  "id": "s-2",
+                  "type": "radio",
+                  "label": "option 2",
+                  "description": "Second option"
+                }
+              ]
             }
           ]
         }
