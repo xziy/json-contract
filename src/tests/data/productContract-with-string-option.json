@@ -14,14 +14,14 @@
   "someSpecificData": "specific data",
   "options": [
     {
-      "id": "numberOption",
-      "label": "Number option",
-      "description": "Number here",
-      "type": "number",
-      "maxLength": 3,
-      "regex": "^[0-8]+$",
-      "min": 10,
-      "max": 100
+      "id": "stringOption",
+      "type": "string",
+      "maxLength": 10,
+      "minLength": 3,
+      "regex": "^[a-zA-Z0-9]+$",
+      "label": "String option",
+      "description": "String here",
+      "isRequired": true
     }
   ]
 }

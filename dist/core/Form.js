@@ -36,14 +36,14 @@ var Form = (function () {
             if (option.type === Option_1.OptionTypes.SELECT) {
                 var reason = option.getRejectReason(value.value, document);
                 if (reason) {
-                    reason.rejectOption = value.id;
+                    reason.rejectOption = "" + option.id + (reason.rejectOption ? ':' + reason.rejectOption : '');
                     return { value: reason };
                 }
             }
             else {
                 var reason = option.getRejectReason(value.value);
                 if (reason) {
-                    reason.rejectOption = value.id;
+                    reason.rejectOption = option.id;
                     return { value: reason };
                 }
             }

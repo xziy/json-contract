@@ -20,7 +20,8 @@
       "regex": "^[a-zA-Z0-9]+$",
       "label": "String option",
       "description": "String here",
-      "isRequired": true
+      "isRequired": true,
+      "isHidden": true
     },
     {
       "id": "numberOption",

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.objectToProperties = void 0;
 function objectToProperties(args) {
     var newArgs = [];
     for (var i in args) {

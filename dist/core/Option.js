@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.OptionTypes = void 0;
 var Reason_1 = require("./Reason");
 var Option = (function () {
     function Option(id, type, label, isRequired, isHidden, description, anyData) {

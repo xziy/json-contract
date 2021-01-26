@@ -10,6 +10,8 @@ const simpleProductContractData = require('./data/simpleProductContract-data.jso
 const simpleProductContractExpected = require('./data/simpleProductContract-expected.json');
 const numberProductContract = require('./data/productContract-with-number-option.json');
 const stringProductContract = require('./data/productContract-with-string-option.json');
+const selectProductContractSimple = require('./data/productContract-with-simple-select-option.json');
+const selectProductContractComplex = require('./data/productContract-with-complex-select-option.json');
 
 describe('Simple Document', () => {
 
@@ -31,7 +33,7 @@ describe('Simple Document', () => {
       document = Document.build(document1Data);
     });
 
-    it('should return reject if string options is required but not set', () => {
+    it('should return ok if string options is required, but hidden and not set', () => {
       const stringValue = document.values.find(v => v.id === 'stringOption');
       if (!stringValue) {
         throw new Error('There is not string option');
@@ -39,10 +41,8 @@ describe('Simple Document', () => {
 
       stringValue.value = undefined;
 
-      document.check().should.be.false();
-      const reason = new Reason('IR', 'is required');
-      reason.rejectOption = 'stringOption';
-      should(document.getRejectReason()).be.eql(reason);
+      document.check().should.be.true();
+      should(document.getRejectReason()).be.undefined();
     });
 
     it('should return reject if select options is required but not set', () => {
@@ -90,7 +90,7 @@ describe('Simple Document', () => {
         should(document.getRejectReason()).be.undefined();
       });
 
-      it('should return reject if number options is not match regex', () => {
+      it('should reject if number options is not match regex', () => {
         const numberValue = document.values.find(v => v.id === 'numberOption');
         if (!numberValue) {
           throw new Error('There is not number option');
@@ -104,7 +104,7 @@ describe('Simple Document', () => {
         should(document.getRejectReason()).be.eql(reason);
       });
 
-      it('should return reject if number options is larger than maximum', () => {
+      it('should reject if number options is larger than maximum', () => {
         const numberValue = document.values.find(v => v.id === 'numberOption');
         if (!numberValue) {
           throw new Error('There is not number option');
@@ -118,7 +118,7 @@ describe('Simple Document', () => {
         should(document.getRejectReason()).be.eql(reason);
       });
 
-      it('should return reject if number options is less than minimal', () => {
+      it('should reject if number options is less than minimal', () => {
         const numberValue = document.values.find(v => v.id === 'numberOption');
         if (!numberValue) {
           throw new Error('There is not number option');
@@ -132,7 +132,7 @@ describe('Simple Document', () => {
         should(document.getRejectReason()).be.eql(reason);
       });
 
-      it('should return reject if number options has type string', () => {
+      it('should reject if number options has type string', () => {
         const numberValue = document.values.find(v => v.id === 'numberOption');
         if (!numberValue) {
           throw new Error('There is not number option');
@@ -167,7 +167,7 @@ describe('Simple Document', () => {
         should(document.getRejectReason()).be.undefined();
       });
 
-      it('should return reject if string options is not match regex', () => {
+      it('should reject if string options is not match regex', () => {
         const stringValue = document.values.find(v => v.id === 'stringOption');
         if (!stringValue) {
           throw new Error('There is not string option');
@@ -181,7 +181,7 @@ describe('Simple Document', () => {
         should(document.getRejectReason()).be.eql(reason);
       });
 
-      it('should return reject if string option length is larger than maximum length', () => {
+      it('should reject if string option length is larger than maximum length', () => {
         const stringValue = document.values.find(v => v.id === 'stringOption');
         if (!stringValue) {
           throw new Error('There is not string option');
@@ -195,7 +195,7 @@ describe('Simple Document', () => {
         should(document.getRejectReason()).be.eql(reason);
       });
 
-      it('should return reject if string option length is less than minimal length', () => {
+      it('should reject if string option length is less than minimal length', () => {
         const stringValue = document.values.find(v => v.id === 'stringOption');
         if (!stringValue) {
           throw new Error('There is not string option');
@@ -209,7 +209,7 @@ describe('Simple Document', () => {
         should(document.getRejectReason()).be.eql(reason);
       });
 
-      it('should return reject if string options has type string', () => {
+      it('should reject if string options has type string', () => {
         const stringValue = document.values.find(v => v.id === 'stringOption');
         if (!stringValue) {
           throw new Error('There is not string option');
@@ -225,18 +225,111 @@ describe('Simple Document', () => {
 
     });
 
-    it('should return reject if string options is not match regex', () => {
-      const stringValue = document.values.find(v => v.id === 'stringOption');
-      if (!stringValue) {
-        throw new Error('There is not string option');
-      }
+    describe('for simple select options', () => {
 
-      stringValue.value = '$#!?';
+      beforeEach(() => {
+        document = Document.build({
+          values: [
+            {
+              id: 'selectOption',
+              value: 's-1'
+            }
+          ],
+          productContract: selectProductContractSimple
+        });
+      });
 
-      document.check().should.be.false();
-      const reason = new Reason('RME', 'regex matching error');
-      reason.rejectOption = 'stringOption';
-      should(document.getRejectReason()).be.eql(reason);
+      it('should return ok', () => {
+        document.check().should.be.true();
+        should(document.getRejectReason()).be.undefined();
+      });
+
+      it('should reject if option not selected', () => {
+        const selectValue = document.values.find(v => v.id === 'selectOption');
+        if (!selectValue) {
+          throw new Error('There is not select option');
+        }
+
+        selectValue.value = 'broken';
+
+        document.check().should.be.false();
+        const reason = new Reason('NC', 'not checked');
+        reason.rejectOption = 'selectOption';
+        should(document.getRejectReason()).be.eql(reason);
+      });
+
+    });
+
+    describe('for complex select option', () => {
+
+      beforeEach(() => {
+        document = Document.build({
+          values: [
+            {
+              id: 'selectOption',
+              value: 'selectWithNumberString'
+            },
+            {
+              id: 'numberOptionRequired',
+              value: 5
+            }
+          ],
+          productContract: selectProductContractComplex
+        });
+      });
+
+      it('should return ok', () => {
+        document.check().should.be.true();
+        should(document.getRejectReason()).be.undefined();
+      });
+
+      it('should reject if number option is larger than max', () => {
+        const numberValue = document.values.find(v => v.id === 'numberOptionRequired');
+        if (!numberValue) {
+          throw new Error('There is not number option');
+        }
+
+        numberValue.value = 15;
+
+        document.check().should.be.false();
+        const reason = new Reason('LTM', 'larger than max');
+        reason.rejectOption = 'selectOption:numberOptionRequired';
+        should(document.getRejectReason()).be.eql(reason);
+      });
+
+      it('should reject if selected radio with required value and value not set', async () => {
+        const selectValue = document.values.find(v => v.id === 'selectOption');
+        if (!selectValue) {
+          throw new Error('There is not select option');
+        }
+
+        selectValue.value = 'selectWithSelect';
+
+        document.check().should.be.false();
+        const reason = new Reason('IR', 'is required');
+        reason.rejectOption = 'selectOption:selectOptionInner';
+        should(document.getRejectReason()).be.eql(reason);
+      });
+
+
+      it('should return ok if selected radio with required value and value set', async () => {
+        const selectValue = document.values.find(v => v.id === 'selectOption');
+        if (!selectValue) {
+          throw new Error('There is not select option');
+        }
+
+        selectValue.value = 'selectWithSelect';
+
+        document.values.push({
+          id: 'selectOptionInner',
+          value: 's-1'
+        });
+
+        document.check().should.be.true();
+        should(document.getRejectReason()).be.undefined();
+      });
+
+
     });
 
   });

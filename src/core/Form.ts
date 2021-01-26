@@ -53,13 +53,13 @@ export default class Form implements FormBuilder {
       if (option.type === OptionTypes.SELECT) {
         const reason = (<OptionSelect>option).getRejectReason(value.value, document);
         if (reason) {
-          reason.rejectOption = value.id;
+          reason.rejectOption = `${option.id}${reason.rejectOption ? ':' + reason.rejectOption : ''}`;
           return reason;
         }
       } else {
         const reason = option.getRejectReason(value.value);
         if (reason) {
-          reason.rejectOption = value.id;
+          reason.rejectOption = option.id;
           return reason;
         }
       }

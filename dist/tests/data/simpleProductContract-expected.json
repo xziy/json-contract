@@ -22,7 +22,7 @@
       "label": "String option",
       "description": "String here",
       "isRequired": true,
-      "isHidden": false
+      "isHidden": true
     },
     {
       "id": "numberOption",

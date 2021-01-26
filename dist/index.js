@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ProductContract = exports.Document = exports.DiscountContract = exports.ProductContractD = exports.DocumentD = void 0;
 var DocumentD_1 = require("./discount/DocumentD");
 exports.DocumentD = DocumentD_1.default;
 var Document_1 = require("./core/Document");

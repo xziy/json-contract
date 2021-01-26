@@ -11,6 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Value = void 0;
 var ProductContract_1 = require("./ProductContract");
 var OptionSelect_1 = require("./OptionSelect");
 var util_1 = require("../lib/util");

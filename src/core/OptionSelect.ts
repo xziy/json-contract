@@ -89,7 +89,7 @@ export default class OptionSelect extends Option {
 
       if (checked.form.options.length) {
         if (document) {
-          const reason = checked.form. getRejectReason(document);
+          const reason = checked.form.getRejectReason(document);
           if (reason)
             return reason;
         }
