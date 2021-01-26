@@ -3,6 +3,7 @@
 import {Document} from "..";
 import should = require("should");
 import Reason from '../core/Reason';
+import {Value} from "../core/Document";
 
 const document1Data = require('./data/document1-data.json');
 const document1Expected = require('./data/document1-expected.json');
@@ -332,6 +333,20 @@ describe('Simple Document', () => {
 
     });
 
+  });
+
+  it('should add option', () => {
+    const document = Document.build({
+      values: [],
+      productContract: simpleProductContractData
+    });
+
+    document.addOption('selectOption', 's-1');
+
+    document.values.should.match([{
+      id: 'selectOption',
+      value: 's-1'
+    }]);
   });
 
 });
