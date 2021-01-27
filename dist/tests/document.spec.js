@@ -325,7 +325,10 @@ describe('Document', function () {
         document.addOption('numberOptionRequired', 5).should.be.true();
         document.values.should.match([{
                 id: 'selectOption',
-                value: 's-1'
+                value: 'selectWithNumberString'
+            }, {
+                id: 'numberOptionRequired',
+                value: 5
             }]);
     });
 });

@@ -359,7 +359,10 @@ describe('Document', () => {
 
     document.values.should.match([{
       id: 'selectOption',
-      value: 's-1'
+      value: 'selectWithNumberString'
+    }, {
+      id: 'numberOptionRequired',
+      value: 5
     }]);
   })
 

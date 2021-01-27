@@ -59,7 +59,7 @@ var OptionSelect = (function (_super) {
         return _super.prototype.getRejectReason.call(this, value);
     };
     OptionSelect.prototype.getSelected = function (value) {
-        return this.options.filter(function (opt) { return opt.id === value; })[0];
+        return this.options.find(function (opt) { return opt.id === value; });
     };
     OptionSelect.prototype.getJSON = function () {
         var clone = _super.prototype.getJSON.call(this);

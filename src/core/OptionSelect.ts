@@ -103,8 +103,8 @@ export default class OptionSelect extends Option {
    * Возвращает [[SelectItem]] для заданного значения
    * @param value - значение
    */
-  public getSelected(value: any): SelectItem {
-    return this.options.filter(opt => opt.id === value)[0];
+  public getSelected(value: any): SelectItem | undefined {
+    return this.options.find(opt => opt.id === value);
   }
 
   /**

@@ -72,7 +72,7 @@ var Form = (function () {
     Form.prototype.getModifiers = function (document) {
         var optionsSelect = this.options.filter(function (opt) { return opt instanceof OptionSelect_1.default; });
         var selectedOptions = optionsSelect.map(function (m) { return m.getSelected(document.getValue(m.id)); });
-        selectedOptions = selectedOptions.filter(function (sm) { return sm; });
+        selectedOptions = selectedOptions.filter(function (sm) { return !!sm; });
         return selectedOptions;
     };
     return Form;

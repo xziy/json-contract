@@ -103,8 +103,8 @@ export default class Form implements FormBuilder {
   private getModifiers(document: Document): SelectItem[] {
     const optionsSelect = <OptionSelect[]>this.options.filter(opt => opt instanceof OptionSelect);
     let selectedOptions = optionsSelect.map(m => m.getSelected(document.getValue(m.id)));
-    selectedOptions = selectedOptions.filter(sm => sm);
-    return selectedOptions;
+    selectedOptions = selectedOptions.filter(sm => !!sm);
+    return <SelectItem[]>selectedOptions;
   }
 }
 

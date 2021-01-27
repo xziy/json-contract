@@ -16,6 +16,7 @@ var ProductContract_1 = require("./ProductContract");
 var OptionSelect_1 = require("./OptionSelect");
 var util_1 = require("../lib/util");
 var uuid = require("uuid");
+var Option_1 = require("./Option");
 var Document = (function () {
     function Document(productContract, values, args) {
         this.productContract = productContract;
@@ -42,23 +43,27 @@ var Document = (function () {
         return this.productContract.getRejectReason(this);
     };
     Document.prototype.addOption = function (id, value) {
-        var option = this.productContract.options.filter(function (opt) { return opt.id === id; })[0];
+        var option = this.findOptionById(id, this.productContract.options);
         if (!option)
             return false;
         if (!option.validate(value))
             return false;
-        var oldValue = this.values.filter(function (v) { return v.id === id; })[0];
+        var oldValue = this.values.find(function (v) { return v.id === id; });
         if (oldValue)
             oldValue.value = value;
         else
             this.values.push(new Value(id, value));
         if (option instanceof OptionSelect_1.default) {
-            option.getSelected(value).action.activate(this.productContractModified);
+            var selected = option.getSelected(value);
+            if (selected) {
+                selected.action.activate(this.productContractModified);
+            }
         }
         return true;
     };
     Document.prototype.getValue = function (id) {
-        return this.values.filter(function (v) { return v.id === id; })[0].value;
+        var value = this.values.find(function (v) { return v.id === id; });
+        return value && value.value;
     };
     Document.prototype.processing = function (contract) {
         if (!this.check())
@@ -75,6 +80,20 @@ var Document = (function () {
                 res[i] = this[i];
         }
         return res;
+    };
+    Document.prototype.findOptionById = function (id, options) {
+        for (var _i = 0, options_1 = options; _i < options_1.length; _i++) {
+            var opt = options_1[_i];
+            if (opt.id === id) {
+                return opt;
+            }
+            if (opt.type === Option_1.OptionTypes.SELECT) {
+                var selected = opt.getSelected(this.getValue(opt.id));
+                if (selected) {
+                    return this.findOptionById(id, selected.form.options);
+                }
+            }
+        }
     };
     return Document;
 }());

@@ -4,6 +4,7 @@ import Property from "./Property";
 import OptionSelect from "./OptionSelect";
 import {objectToProperties} from "../lib/util";
 import * as uuid from "uuid";
+import Option, {OptionTypes} from "./Option";
 
 /**
  * Основной класс. Документ хранит пары id-значение для некоторого [[ProductContract]], сам [[ProductContract]] и копию
@@ -100,7 +101,7 @@ export default class Document implements DocumentBuild {
    * @param value - Новое значение ввода
    */
   public addOption(id: string, value: any): boolean {
-    const option = this.productContract.options.filter(opt => opt.id === id)[0];
+    const option = this.findOptionById(id, this.productContract.options);
 
     if (!option)
       return false;
@@ -108,14 +109,17 @@ export default class Document implements DocumentBuild {
     if (!option.validate(value))
       return false;
 
-    const oldValue = this.values.filter(v => v.id === id)[0];
+    const oldValue = this.values.find(v => v.id === id);
     if (oldValue)
       oldValue.value = value;
     else
       this.values.push(new Value(id, value));
 
     if (option instanceof OptionSelect) {
-      option.getSelected(value).action.activate(this.productContractModified);
+      const selected = option.getSelected(value);
+      if (selected) {
+        selected.action.activate(this.productContractModified);
+      }
     }
 
     return true;
@@ -127,7 +131,8 @@ export default class Document implements DocumentBuild {
    * @param id - [[Option]] id
    */
   public getValue(id: string): any {
-    return this.values.filter(v => v.id === id)[0].value;
+    const value = this.values.find(v => v.id === id);
+    return value && value.value;
   }
 
   /**
@@ -159,6 +164,20 @@ export default class Document implements DocumentBuild {
         res[i] = this[i];
     }
     return res;
+  }
+
+  private findOptionById(id: string, options: Option[]): Option | undefined {
+    for (let opt of options) {
+      if (opt.id === id) {
+        return opt;
+      }
+      if (opt.type === OptionTypes.SELECT) {
+        const selected = (<OptionSelect>opt).getSelected(this.getValue(opt.id));
+        if (selected) {
+          return this.findOptionById(id, selected.form.options);
+        }
+      }
+    }
   }
 }
 
