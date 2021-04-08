@@ -17,6 +17,7 @@ export default class Document implements DocumentBuild {
     addOption(id: string, value: any): boolean;
     getValue(id: string): any;
     processing(contract?: ProductContract): boolean;
+    dry(): DocumentDry;
 }
 export interface DocumentBuild {
     productContract: ProductContract;
@@ -26,4 +27,11 @@ export declare class Value {
     id: string;
     value: any;
     constructor(id: string, value: any);
+}
+export interface DocumentDry {
+    productContract: string;
+    controlHash: string;
+    values: Value[];
+    documentId: string;
+    [x: string]: any;
 }

@@ -1,8 +1,8 @@
-const ProductContractD = require('json-contract').ProductContractD;
-const DocumentD = require('json-contract').DocumentD;
-const DiscountContract = require('json-contract').DiscountContract;
-const Document = require('json-contract').Document;
-const ProductContract = require('json-contract').ProductContract;
+const ProductContractD = require('..').ProductContractD;
+const DocumentD = require('..').DocumentD;
+const DiscountContract = require('..').DiscountContract;
+const Document = require('..').Document;
+const ProductContract = require('..').ProductContract;
 
 function log(str, label) {
   if (label)
@@ -169,8 +169,8 @@ function test5() {
   log(doc1, 'DocumentD 2');
 }
 
-test1();
-// test2();
+// test1();
+test2();
 // test3();
 // test4();
 // test5();

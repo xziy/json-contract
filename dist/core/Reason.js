@@ -13,7 +13,7 @@ var Reason = (function () {
         set: function (value) {
             this._rejectOption = value;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return Reason;

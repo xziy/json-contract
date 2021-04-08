@@ -24,7 +24,7 @@ var Action = (function () {
                 }
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Action.build = function (_a) {

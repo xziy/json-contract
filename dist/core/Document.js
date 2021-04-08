@@ -11,10 +11,12 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Value = void 0;
 var ProductContract_1 = require("./ProductContract");
 var OptionSelect_1 = require("./OptionSelect");
 var util_1 = require("../lib/util");
 var uuid = require("uuid");
+var Option_1 = require("./Option");
 var Document = (function () {
     function Document(productContract, values, args) {
         this.productContract = productContract;
@@ -41,23 +43,32 @@ var Document = (function () {
         return this.productContract.getRejectReason(this);
     };
     Document.prototype.addOption = function (id, value) {
-        var option = this.productContract.options.filter(function (opt) { return opt.id === id; })[0];
+        var option = this.findOptionById(id, this.productContract.options);
         if (!option)
             return false;
         if (!option.validate(value))
             return false;
-        var oldValue = this.values.filter(function (v) { return v.id === id; })[0];
-        if (oldValue)
+        var oldValue = this.values.find(function (v) { return v.id === id; });
+        if (oldValue) {
+            if (option.type === Option_1.OptionTypes.SELECT) {
+                var oldOptionIds_1 = this.getOptionsOfSelectItem(option, oldValue.value).map(function (o) { return o.id; });
+                this.values = this.values.filter(function (v) { return !oldOptionIds_1.includes(v.id); });
+            }
             oldValue.value = value;
+        }
         else
             this.values.push(new Value(id, value));
         if (option instanceof OptionSelect_1.default) {
-            option.getSelected(value).action.activate(this.productContractModified);
+            var selected = option.getSelected(value);
+            if (selected) {
+                selected.action.activate(this.productContractModified);
+            }
         }
         return true;
     };
     Document.prototype.getValue = function (id) {
-        return this.values.filter(function (v) { return v.id === id; })[0].value;
+        var value = this.values.find(function (v) { return v.id === id; });
+        return value && value.value;
     };
     Document.prototype.processing = function (contract) {
         if (!this.check())
@@ -74,6 +85,27 @@ var Document = (function () {
                 res[i] = this[i];
         }
         return res;
+    };
+    Document.prototype.findOptionById = function (id, options) {
+        for (var _i = 0, options_1 = options; _i < options_1.length; _i++) {
+            var opt = options_1[_i];
+            if (opt.id === id) {
+                return opt;
+            }
+            if (opt.type === Option_1.OptionTypes.SELECT) {
+                var selected = opt.getSelected(this.getValue(opt.id));
+                if (selected) {
+                    return this.findOptionById(id, selected.form.options);
+                }
+            }
+        }
+    };
+    Document.prototype.getOptionsOfSelectItem = function (selectOption, selected) {
+        var selectedItem = selectOption.options.find(function (opt) { return opt.id === selected; });
+        if (selectedItem) {
+            return selectedItem.form.options;
+        }
+        return [];
     };
     return Document;
 }());

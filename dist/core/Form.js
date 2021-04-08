@@ -36,14 +36,14 @@ var Form = (function () {
             if (option.type === Option_1.OptionTypes.SELECT) {
                 var reason = option.getRejectReason(value.value, document);
                 if (reason) {
-                    reason.rejectOption = value.id;
+                    reason.rejectOption = "" + option.id + (reason.rejectOption ? ':' + reason.rejectOption : '');
                     return { value: reason };
                 }
             }
             else {
                 var reason = option.getRejectReason(value.value);
                 if (reason) {
-                    reason.rejectOption = value.id;
+                    reason.rejectOption = option.id;
                     return { value: reason };
                 }
             }
@@ -72,7 +72,7 @@ var Form = (function () {
     Form.prototype.getModifiers = function (document) {
         var optionsSelect = this.options.filter(function (opt) { return opt instanceof OptionSelect_1.default; });
         var selectedOptions = optionsSelect.map(function (m) { return m.getSelected(document.getValue(m.id)); });
-        selectedOptions = selectedOptions.filter(function (sm) { return sm; });
+        selectedOptions = selectedOptions.filter(function (sm) { return !!sm; });
         return selectedOptions;
     };
     return Form;
