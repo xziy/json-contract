@@ -316,19 +316,81 @@ describe('Document', function () {
                 value: 's-1'
             }]);
     });
-    it('should add option in select options', function () {
-        var document = __1.Document.build({
-            values: [],
-            productContract: selectProductContractComplex
+    describe('addOption', function () {
+        it('should add option in select options', function () {
+            var document = __1.Document.build({
+                values: [],
+                productContract: selectProductContractComplex
+            });
+            document.addOption('selectOption', 'selectWithNumberString').should.be.true();
+            document.addOption('numberOptionRequired', 5).should.be.true();
+            document.values.should.match([{
+                    id: 'selectOption',
+                    value: 'selectWithNumberString'
+                }, {
+                    id: 'numberOptionRequired',
+                    value: 5
+                }]);
         });
-        document.addOption('selectOption', 'selectWithNumberString').should.be.true();
-        document.addOption('numberOptionRequired', 5).should.be.true();
-        document.values.should.match([{
-                id: 'selectOption',
-                value: 'selectWithNumberString'
-            }, {
-                id: 'numberOptionRequired',
-                value: 5
-            }]);
+        it('should reject if option not found', function () {
+            var document = __1.Document.build({
+                values: [],
+                productContract: selectProductContractComplex
+            });
+            document.addOption('brokenOption', 'value').should.be.false();
+            document.values.should.match([]);
+        });
+        it('should reject if option not valid', function () {
+            var document = __1.Document.build({
+                values: [],
+                productContract: selectProductContractComplex
+            });
+            document.addOption('selectOption', 'brokenSelect').should.be.false();
+            document.values.should.match([]);
+        });
+        it('should update value if it has been set previously', function () {
+            var document = __1.Document.build({
+                values: [],
+                productContract: selectProductContractComplex
+            });
+            document.addOption('selectOption', 'selectWithNumberString').should.be.true();
+            document.addOption('numberOptionRequired', 5).should.be.true();
+            document.addOption('numberOptionRequired', 7).should.be.true();
+            document.values.should.match([{
+                    id: 'selectOption',
+                    value: 'selectWithNumberString'
+                }, {
+                    id: 'numberOptionRequired',
+                    value: 7
+                }]);
+        });
+        it('should remove unselected options', function () {
+            var document = __1.Document.build({
+                values: [],
+                productContract: selectProductContractComplex
+            });
+            document.addOption('selectOption', 'selectWithNumberString').should.be.true();
+            document.addOption('numberOptionRequired', 5).should.be.true();
+            document.values.should.match([{
+                    id: 'selectOption',
+                    value: 'selectWithNumberString'
+                }, {
+                    id: 'numberOptionRequired',
+                    value: 5
+                }]);
+            document.addOption('selectOption', 'selectWithSelect').should.be.true();
+            document.addOption('selectOptionInner', 's-1').should.be.true();
+            document.values.should.match([{
+                    id: 'selectOption',
+                    value: 'selectWithSelect'
+                }, {
+                    id: 'selectOptionInner',
+                    value: 's-1'
+                }]);
+        });
+        describe('and activate action', function () {
+            it('should modify price', function () {
+            });
+        });
     });
 });

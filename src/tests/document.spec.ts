@@ -348,22 +348,104 @@ describe('Document', () => {
     }]);
   });
 
-  it('should add option in select options', () => {
-    const document = Document.build({
-      values: [],
-      productContract: selectProductContractComplex
+  describe('addOption', () => {
+
+    it('should add option in select options', () => {
+      const document = Document.build({
+        values: [],
+        productContract: selectProductContractComplex
+      });
+
+      document.addOption('selectOption', 'selectWithNumberString').should.be.true();
+      document.addOption('numberOptionRequired', 5).should.be.true();
+
+      document.values.should.match([{
+        id: 'selectOption',
+        value: 'selectWithNumberString'
+      }, {
+        id: 'numberOptionRequired',
+        value: 5
+      }]);
     });
 
-    document.addOption('selectOption', 'selectWithNumberString').should.be.true();
-    document.addOption('numberOptionRequired', 5).should.be.true();
+    it('should reject if option not found', () => {
+      const document = Document.build({
+        values: [],
+        productContract: selectProductContractComplex
+      });
 
-    document.values.should.match([{
-      id: 'selectOption',
-      value: 'selectWithNumberString'
-    }, {
-      id: 'numberOptionRequired',
-      value: 5
-    }]);
-  })
+      document.addOption('brokenOption', 'value').should.be.false();
+
+      document.values.should.match([]);
+    });
+
+    it('should reject if option not valid', () => {
+      const document = Document.build({
+        values: [],
+        productContract: selectProductContractComplex
+      });
+
+      document.addOption('selectOption', 'brokenSelect').should.be.false();
+
+      document.values.should.match([]);
+    });
+
+    it('should update value if it has been set previously', () => {
+      const document = Document.build({
+        values: [],
+        productContract: selectProductContractComplex
+      });
+
+      document.addOption('selectOption', 'selectWithNumberString').should.be.true();
+      document.addOption('numberOptionRequired', 5).should.be.true();
+      document.addOption('numberOptionRequired', 7).should.be.true();
+
+      document.values.should.match([{
+        id: 'selectOption',
+        value: 'selectWithNumberString'
+      }, {
+        id: 'numberOptionRequired',
+        value: 7
+      }]);
+    });
+
+    it('should remove unselected options', () => {
+      const document = Document.build({
+        values: [],
+        productContract: selectProductContractComplex
+      });
+
+      document.addOption('selectOption', 'selectWithNumberString').should.be.true();
+      document.addOption('numberOptionRequired', 5).should.be.true();
+
+      document.values.should.match([{
+        id: 'selectOption',
+        value: 'selectWithNumberString'
+      }, {
+        id: 'numberOptionRequired',
+        value: 5
+      }]);
+
+      document.addOption('selectOption', 'selectWithSelect').should.be.true();
+      document.addOption('selectOptionInner', 's-1').should.be.true();
+
+      document.values.should.match([{
+        id: 'selectOption',
+        value: 'selectWithSelect'
+      }, {
+        id: 'selectOptionInner',
+        value: 's-1'
+      }]);
+    });
+
+    describe('and activate action', () => {
+
+      it('should modify price', () => {
+
+      });
+
+    });
+
+  });
 
 });

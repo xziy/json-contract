@@ -49,8 +49,13 @@ var Document = (function () {
         if (!option.validate(value))
             return false;
         var oldValue = this.values.find(function (v) { return v.id === id; });
-        if (oldValue)
+        if (oldValue) {
+            if (option.type === Option_1.OptionTypes.SELECT) {
+                var oldOptionIds_1 = this.getOptionsOfSelectItem(option, oldValue.value).map(function (o) { return o.id; });
+                this.values = this.values.filter(function (v) { return !oldOptionIds_1.includes(v.id); });
+            }
             oldValue.value = value;
+        }
         else
             this.values.push(new Value(id, value));
         if (option instanceof OptionSelect_1.default) {
@@ -94,6 +99,13 @@ var Document = (function () {
                 }
             }
         }
+    };
+    Document.prototype.getOptionsOfSelectItem = function (selectOption, selected) {
+        var selectedItem = selectOption.options.find(function (opt) { return opt.id === selected; });
+        if (selectedItem) {
+            return selectedItem.form.options;
+        }
+        return [];
     };
     return Document;
 }());

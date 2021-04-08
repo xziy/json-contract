@@ -110,8 +110,13 @@ export default class Document implements DocumentBuild {
       return false;
 
     const oldValue = this.values.find(v => v.id === id);
-    if (oldValue)
+    if (oldValue) {
+      if (option.type === OptionTypes.SELECT) {
+          const oldOptionIds = this.getOptionsOfSelectItem(<OptionSelect>option, oldValue.value).map(o => o.id);
+          this.values = this.values.filter(v => !oldOptionIds.includes(v.id));
+      }
       oldValue.value = value;
+    }
     else
       this.values.push(new Value(id, value));
 
@@ -179,6 +184,15 @@ export default class Document implements DocumentBuild {
       }
     }
   }
+
+  private getOptionsOfSelectItem(selectOption: OptionSelect, selected: string): Option[] {
+    const selectedItem = selectOption.options.find(opt => opt.id === selected);
+    if (selectedItem) {
+      return selectedItem.form.options;
+    }
+    return [];
+  }
+
 }
 
 /**
