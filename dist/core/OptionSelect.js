@@ -3,7 +3,7 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
@@ -59,7 +59,7 @@ var OptionSelect = (function (_super) {
         return _super.prototype.getRejectReason.call(this, value);
     };
     OptionSelect.prototype.getSelected = function (value) {
-        return this.options.filter(function (opt) { return opt.id === value; })[0];
+        return this.options.find(function (opt) { return opt.id === value; });
     };
     OptionSelect.prototype.getJSON = function () {
         var clone = _super.prototype.getJSON.call(this);

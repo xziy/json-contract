@@ -1,0 +1,27 @@
+{
+  "name": "Test1",
+  "locale": "EN",
+  "description": "Simple test contract",
+  "specificationMinVersion": 1,
+  "prefix": "T1",
+  "badge": "test_1",
+  "price": 100,
+  "currency": "USD",
+  "start": 1611492655398,
+  "finish": 1711492655398,
+  "revision": 1,
+  "deliveryTime": 24,
+  "someSpecificData": "specific data",
+  "options": [
+    {
+      "id": "numberOption",
+      "label": "Number option",
+      "description": "Number here",
+      "type": "number",
+      "maxLength": 3,
+      "regex": "^[0-8]+$",
+      "min": 10,
+      "max": 100
+    }
+  ]
+}

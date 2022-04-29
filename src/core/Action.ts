@@ -7,7 +7,7 @@ import Property from "./Property";
  */
 export default class Action implements ActionBuilder<ProductContract> {
   /**
-   * Изменение цены. Может увеличить, уменьшить или устновить конкретную цену, подробнее см. [[Changeable]]
+   * Изменение цены. Может увеличить, уменьшить или установить конкретную цену, подробнее см. [[Changeable]]
    */
   modifyPrice?: Changeable;
   /**
@@ -24,11 +24,11 @@ export default class Action implements ActionBuilder<ProductContract> {
    */
   showOptionsById?: string[];
   /**
-   * Массив пар <ключ>-<новое значение>, которые будут изменены в переданом [[ProductContract]]
+   * Массив пар <ключ>-<новое значение>, которые будут изменены в переданном [[ProductContract]]
    */
   changeProperties?: Property<ProductContract>[];
   /**
-   * Массив пар <ключ>-<значение>, которые будут добавлены в переданый [[ProductContract]]
+   * Массив пар <ключ>-<значение>, которые будут добавлены в переданный [[ProductContract]]
    */
   setCustomProperties?: Property<object>[];
 
@@ -110,14 +110,14 @@ export default class Action implements ActionBuilder<ProductContract> {
   }
 
   /**
-   * Активация екземпляра. Если поле не undefined, то выполняет измненеие, которое в нём указано.
-   * - Если указан [[modifyPrice]], происходит измнение цены.
+   * Активация экземпляра. Если поле не undefined, то выполняет изменение, которое в нём указано.
+   * - Если указан [[modifyPrice]], происходит изменение цены.
    * - Если указан [[modifyDeliveryTime]], происходит изменение времени доставки
-   * - Если указан [[_setDiscountInPercentage]], цена, после возможного изменения выше, уменьшаяется на указаный процент
+   * - Если указан [[_setDiscountInPercentage]], цена, после возможного изменения выше, уменьшается на указанный процент
    * - Если указан [[showOptionsById]], поле isHidden всех [[Option]], id которых указан в массиве, станет false
    * - Если указан [[hideOptionsById]], поле isHidden всех [[Option]], id которых указан в массиве, станет true
-   * - Если указан [[changeProperties]], будут изменены указаные в нём поля на новые значения
-   * - Если указан [[setCustomProperties]], будут добавлены указаные в нём поля
+   * - Если указан [[changeProperties]], будут изменены указанные в нём поля на новые значения
+   * - Если указан [[setCustomProperties]], будут добавлены указанные в нём поля
    * @param contract - контракт для изменения
    */
   public activate(contract: ProductContract): void {

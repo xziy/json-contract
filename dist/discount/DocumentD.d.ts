@@ -1,4 +1,4 @@
-import Document, { DocumentBuild, Value } from "../core/Document";
+import Document, { DocumentBuild, DocumentDry, Value } from "../core/Document";
 import DiscountContract from "./DiscountContract";
 import ProductContractD from "./ProductContractD";
 import Property from "../core/Property";
@@ -12,9 +12,13 @@ export default class DocumentD extends Document implements DocumentDiscountBuild
     static build({ productContract, values, ...args }: DocumentDiscountBuild): DocumentD;
     processing(contract?: ProductContractD): boolean;
     addDiscount(discount: DiscountContract): boolean;
+    dry(): DocumentDDry;
 }
 interface DocumentDiscountBuild extends DocumentBuild {
     discountContracts: DiscountContract[];
     productContract: ProductContractD;
+}
+export interface DocumentDDry extends DocumentDry {
+    discountContracts: string[];
 }
 export {};

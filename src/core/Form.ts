@@ -3,11 +3,11 @@ import Document, {Value} from "./Document";
 import Reason from "./Reason";
 
 /**
- * Содержит в [[Option]][] и методы для обрабокти [[Option]] в зависимости от значения, что для него записано
+ * Содержит в [[Option]][] и методы для обработки [[Option]] в зависимости от значения, что для него записано
  */
 export default class Form implements FormBuilder {
   /**
-   * Массив [[Option]]. По сути это набор полей для ввода, которые в этом классе проверяются и при необходисти иным образом
+   * Массив [[Option]]. По сути это набор полей для ввода, которые в этом классе проверяются и при необходимости иным образом
    * обрабатываются
    */
   options: Option[];
@@ -26,8 +26,7 @@ export default class Form implements FormBuilder {
   }
 
   /**
-   * Проверяет, что переданый документ содержит валиданые значения для options этого екземляра
-   *
+   * Проверяет, что переданный документ содержит валиданые значения для options этого экземпляра
    * @param document - Документ, подлежащий проверке
    */
   public validate(document: Document): boolean {
@@ -45,7 +44,7 @@ export default class Form implements FormBuilder {
   }
 
   /**
-   * Возращает причину не валидности документа или undefined если документ валидный.
+   * Возвращает причину не валидности документа или undefined если документ валидный.
    * @param document
    */
   public getRejectReason(document: Document): Reason | undefined {
@@ -54,13 +53,13 @@ export default class Form implements FormBuilder {
       if (option.type === OptionTypes.SELECT) {
         const reason = (<OptionSelect>option).getRejectReason(value.value, document);
         if (reason) {
-          reason.rejectOption = value.id;
+          reason.rejectOption = `${option.id}${reason.rejectOption ? ':' + reason.rejectOption : ''}`;
           return reason;
         }
       } else {
         const reason = option.getRejectReason(value.value);
         if (reason) {
-          reason.rejectOption = value.id;
+          reason.rejectOption = option.id;
           return reason;
         }
       }
@@ -69,11 +68,11 @@ export default class Form implements FormBuilder {
   }
 
   /**
-   * Расчитывает цену, время доставки, а так же редактирует productContractModified переданого [[Document]] в соответствии
-   * с выбраными [[OptionsSelect]]. Иными словами, этот метод активирует все [[Action]] для выбраных [[SelectItem]].
+   * Рассчитывает цену, время доставки, а так же редактирует productContractModified переданного [[Document]] в соответствии
+   * с выбранными [[OptionsSelect]]. Иными словами, этот метод активирует все [[Action]] для выбранных [[SelectItem]].
    * @param document - документ, который нужно обработать
    * @param contract - [[ProductContract]] который использовать для сброса. Если не передан, то используется productContract
-   * переденого документа
+   * переданного документа
    */
   public processing(document: Document, contract?: ProductContract): void {
     document.productContractModified = (contract || document.productContract).clone();
@@ -82,7 +81,7 @@ export default class Form implements FormBuilder {
   }
 
   /**
-   * Создаёт глубокую копию текущего екземпляра.
+   * Создаёт глубокую копию текущего экземпляра.
    */
   public clone(): Form {
     return Form.build(this.getJSON());
@@ -98,14 +97,14 @@ export default class Form implements FormBuilder {
   }
 
   /**
-   * Возвращает все [[SelectItem]], которые в данный момент выбраны для текущих options в переданом документе.
+   * Возвращает все [[SelectItem]], которые в данный момент выбраны для текущих options в переданном документе.
    * @param document - документ
    */
   private getModifiers(document: Document): SelectItem[] {
     const optionsSelect = <OptionSelect[]>this.options.filter(opt => opt instanceof OptionSelect);
     let selectedOptions = optionsSelect.map(m => m.getSelected(document.getValue(m.id)));
-    selectedOptions = selectedOptions.filter(sm => sm);
-    return selectedOptions;
+    selectedOptions = selectedOptions.filter(sm => !!sm);
+    return <SelectItem[]>selectedOptions;
   }
 }
 

@@ -8,8 +8,8 @@ import Document from "./Document";
  */
 export default class OptionSelect extends Option {
   /**
-   * Массив екземпляров, содержащие строки, из которых можно выбрать одну как значение. Тут же хранятся и действия ([[Action]]),
-   * которые будут выполнены при выборе конктерного значения и новые [[Option]][], которые будут показаны при выборе конктерного
+   * Массив экземпляров, содержащие строки, из которых можно выбрать одну как значение. Тут же хранятся и действия ([[Action]]),
+   * которые будут выполнены при выборе конкретного значения и новые [[Option]][], которые будут показаны при выборе конкретного
    * значения
    */
   options: SelectItem[];
@@ -30,7 +30,7 @@ export default class OptionSelect extends Option {
   }
 
   /**
-   * Создаёт екземпляр OptionSelect из JSON. Если передать объект, то будет произведена попытка создать копию.
+   * Создаёт экземпляр OptionSelect из JSON. Если передать объект, то будет произведена попытка создать копию.
    * @param id - id
    * @param type - тип
    * @param label - подпись
@@ -48,7 +48,7 @@ export default class OptionSelect extends Option {
   /**
    * Проверка валидности значения. Проверяет, что выбранное значение есть в массиве допустимых значений, а так же
    * проверяет вложенные значения этого выбора, если был передан документ. У некоторых [[SelectItem]] могут быть вложены
-   * свои [[Option]][], которые следует проверить. Тут происходит проверка того, что для опций выбраного значения документ
+   * свои [[Option]][], которые следует проверить. Тут происходит проверка того, что для опций выбранного значения документ
    * так же является валидным
    * @param value - значение для проверки
    * @param document - документ, в котором хранятся вложенные значения
@@ -69,7 +69,7 @@ export default class OptionSelect extends Option {
   }
 
   /**
-   * Возращает причину не валидности значения или undefined если значение валидное
+   * Возвращает причину не валидности значения или undefined если значение валидное
    * @param value - значение
    * @param document
    * @return Возможные значения
@@ -89,7 +89,7 @@ export default class OptionSelect extends Option {
 
       if (checked.form.options.length) {
         if (document) {
-          const reason = checked.form. getRejectReason(document);
+          const reason = checked.form.getRejectReason(document);
           if (reason)
             return reason;
         }
@@ -100,11 +100,11 @@ export default class OptionSelect extends Option {
   }
 
   /**
-   * Возвращает [[SelectItem]] для заданого значения
+   * Возвращает [[SelectItem]] для заданного значения
    * @param value - значение
    */
-  public getSelected(value: any): SelectItem {
-    return this.options.filter(opt => opt.id === value)[0];
+  public getSelected(value: any): SelectItem | undefined {
+    return this.options.find(opt => opt.id === value);
   }
 
   /**

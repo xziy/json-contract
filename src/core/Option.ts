@@ -5,7 +5,7 @@ import Reason from "./Reason";
  */
 export default class Option {
   /**
-   * id екземпляра. Указывается в [[Value.id]]
+   * id экземпляра. Указывается в [[Value.id]]
    */
   id: string;
   /**
@@ -13,7 +13,7 @@ export default class Option {
    * - string - строка
    * - number - цифра
    * - select - выбор из нескольких
-   * Подроности смотреть в классах наследниках
+   * Подробности смотреть в классах наследниках
    */
   type: string;
   /**
@@ -21,7 +21,7 @@ export default class Option {
    */
   label: string;
   /**
-   * Указыает обязательно ли поле к заполнению
+   * Указывает обязательно ли поле к заполнению
    */
   isRequired: boolean;
   /**
@@ -64,7 +64,7 @@ export default class Option {
   }
 
   /**
-   * Создаёт екземпляр [[Option]] из JSON. Если передать объект, то будет создана его копия.
+   * Создаёт экземпляр [[Option]] из JSON. Если передать объект, то будет создана его копия.
    * @param id - id
    * @param type - тип
    * @param label - подпись
@@ -78,9 +78,9 @@ export default class Option {
   }
 
   /**
-   * Создаёт екземпляр того класса, тип которого указан в type в параметре data.
+   * Создаёт экземпляр того класса, тип которого указан в type в параметре data.
    * Например, если data.type = 'number', то будет создан и отдан [[OptionNumber]].
-   * @param data - JSON объект для создания нового [[Option]] или екземпляр [[Option]] для клонирования
+   * @param data - JSON объект для создания нового [[Option]] или экземпляр [[Option]] для клонирования
    */
   public static getOption<T extends Option>(data: T): Option {
     switch (data.type) {
@@ -95,7 +95,7 @@ export default class Option {
   }
 
   /**
-   * Базовая проверка значения. Если значение не спратно ([[isHidden]]=false) и оно язвлется обязательны([[isRequired]]=true)
+   * Базовая проверка значения. Если значение не спрятано ([[isHidden]]=false) и оно является обязательны([[isRequired]]=true)
    * и значение передано пустым, то валидация не будет пройдена. В ином случае валидация пройдена.
    * @param value - значение для проверки
    */
@@ -110,7 +110,7 @@ export default class Option {
   }
 
   /**
-   * Возращает причину не валидности значения или undefined если значение валидное
+   * Возвращает причину не валидности значения или undefined если значение валидное
    * @param value - значение для проверки
    * @return Возможные значения
    * - Reason {
@@ -129,7 +129,7 @@ export default class Option {
   }
 
   /**
-   * Возвращает текущий екземпляр как JSON. Метод противоположный [[build]].
+   * Возвращает текущий экземпляр как JSON. Метод противоположный [[build]].
    */
   public getJSON(): Option {
     return Object.assign({}, this);

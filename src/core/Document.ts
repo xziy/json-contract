@@ -4,16 +4,17 @@ import Property from "./Property";
 import OptionSelect from "./OptionSelect";
 import {objectToProperties} from "../lib/util";
 import * as uuid from "uuid";
+import Option, {OptionTypes} from "./Option";
 
 /**
- * Основной класс. Документ хранит пары id-зачение для некоторого [[ProductContract]], сам [[ProductContract]] и копию
+ * Основной класс. Документ хранит пары id-значение для некоторого [[ProductContract]], сам [[ProductContract]] и копию
  * [[ProductContract]], которая может меняться [[Action]]. Эти [[Action]] могут быть активированы [[OptionSelect]] посредством выбора юзера
  * которого из вариантов. Активация [[Action]] происходит в момент записи новой пары OptionSelectId-значение. Документ по
  * сути своей является наполнением для [[ProductContract]]
  */
 export default class Document implements DocumentBuild {
   /**
-   * [[ProductContract]] шаблон, используется при сбросе для расчёта стоимости, врени доставки и прочих изменений
+   * [[ProductContract]] шаблон, используется при сбросе для расчёта стоимости, времени доставки и прочих изменений
    */
   productContract: ProductContract;
   /**
@@ -63,11 +64,11 @@ export default class Document implements DocumentBuild {
   }
 
   /**
-   * Создаёт экземпляр документа из JSON. Поля JSON аналогичны конструктору. Обработка проихсодит рекурсивно, то есть
+   * Создаёт экземпляр документа из JSON. Поля JSON аналогичны конструктору. Обработка происходит рекурсивно, то есть
    * создаются новые [[Value]] и [[ProductContract]]
    *
-   * @param productContract - [[ProductContract]], может быть JSON или екземляр класса. Если это JSON, то будет создан новый екземпляр [[ProductContract]] на его основе,
-   * если это екземпляр, то он будет скопирован, опять же, рекурсивно
+   * @param productContract - [[ProductContract]], может быть JSON или экземпляр класса. Если это JSON, то будет создан новый экземпляр [[ProductContract]] на его основе,
+   * если это экземпляр, то он будет скопирован, опять же, рекурсивно
    * @param values - Массив пар id-значение. При создании не проверяется, для проверки используйте метод [[validate]]
    * @param args - Дополнительные поля (для внешних модулей)
    * @return new [[Document]]
@@ -100,7 +101,7 @@ export default class Document implements DocumentBuild {
    * @param value - Новое значение ввода
    */
   public addOption(id: string, value: any): boolean {
-    const option = this.productContract.options.filter(opt => opt.id === id)[0];
+    const option = this.findOptionById(id, this.productContract.options);
 
     if (!option)
       return false;
@@ -108,14 +109,22 @@ export default class Document implements DocumentBuild {
     if (!option.validate(value))
       return false;
 
-    const oldValue = this.values.filter(v => v.id === id)[0];
-    if (oldValue)
+    const oldValue = this.values.find(v => v.id === id);
+    if (oldValue) {
+      if (option.type === OptionTypes.SELECT) {
+          const oldOptionIds = this.getOptionsOfSelectItem(<OptionSelect>option, oldValue.value).map(o => o.id);
+          this.values = this.values.filter(v => !oldOptionIds.includes(v.id));
+      }
       oldValue.value = value;
+    }
     else
       this.values.push(new Value(id, value));
 
     if (option instanceof OptionSelect) {
-      option.getSelected(value).action.activate(this.productContractModified);
+      const selected = option.getSelected(value);
+      if (selected) {
+        selected.action.activate(this.productContractModified);
+      }
     }
 
     return true;
@@ -127,12 +136,13 @@ export default class Document implements DocumentBuild {
    * @param id - [[Option]] id
    */
   public getValue(id: string): any {
-    return this.values.filter(v => v.id === id)[0].value;
+    const value = this.values.find(v => v.id === id);
+    return value && value.value;
   }
 
   /**
-   * Расчитывает цену, время доставки, а так же редактирует [[productContractModified]] поле в соответствии с выбраными [[OptionsSelect]].
-   * Иными словами, этот метод активирует все [[Action]] для выбраных [[OptionsSelect]]
+   * Рассчитывает цену, время доставки, а так же редактирует [[productContractModified]] поле в соответствии с выбранными [[OptionsSelect]].
+   * Иными словами, этот метод активирует все [[Action]] для выбранных [[OptionsSelect]]
    *
    * @param contract - [[ProductContract]] который использовать для сброса. Если не передан, то используется [[productContract]] поле
    * @return Успешность расчёта
@@ -147,7 +157,7 @@ export default class Document implements DocumentBuild {
   }
 
   /**
-   * "Осущает" документ. Создаёт объект, который содержит только поля, необходимые для воссоздания его в другом модуле.
+   * "Осушает" документ. Создаёт объект, который содержит только поля, необходимые для воссоздания его в другом модуле.
    * поле [[productContract]] заменяется на его [[ProductContract.contractId]]
    */
   public dry(): DocumentDry {
@@ -160,6 +170,29 @@ export default class Document implements DocumentBuild {
     }
     return res;
   }
+
+  private findOptionById(id: string, options: Option[]): Option | undefined {
+    for (let opt of options) {
+      if (opt.id === id) {
+        return opt;
+      }
+      if (opt.type === OptionTypes.SELECT) {
+        const selected = (<OptionSelect>opt).getSelected(this.getValue(opt.id));
+        if (selected) {
+          return this.findOptionById(id, selected.form.options);
+        }
+      }
+    }
+  }
+
+  private getOptionsOfSelectItem(selectOption: OptionSelect, selected: string): Option[] {
+    const selectedItem = selectOption.options.find(opt => opt.id === selected);
+    if (selectedItem) {
+      return selectedItem.form.options;
+    }
+    return [];
+  }
+
 }
 
 /**
