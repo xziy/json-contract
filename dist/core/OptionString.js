@@ -25,8 +25,8 @@ var OptionString = (function (_super) {
         return _this;
     }
     OptionString.buildOption = function (_a) {
-        var anyData = _a.anyData, description = _a.description, id = _a.id, isRequired = _a.isRequired, isHidden = _a.isHidden, label = _a.label, maxLength = _a.maxLength, minLength = _a.minLength, regex = _a.regex, type = _a.type;
-        return new OptionString(id, type, label, isRequired, isHidden, description, anyData, minLength, maxLength, regex);
+        var anyData = _a.anyData, description = _a.description, id = _a.id, isRequired = _a.isRequired, isHidden = _a.isHidden, label = _a.label, maxLength = _a.maxLength, minLength = _a.minLength, regex = _a.regex, type = _a.type, handler = _a.handler;
+        return new OptionString(id, type, label, isRequired, isHidden, description, anyData, minLength, maxLength, regex, handler);
     };
     OptionString.prototype.validate = function (value) {
         if (value) {

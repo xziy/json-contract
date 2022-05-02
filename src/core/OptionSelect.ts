@@ -23,9 +23,10 @@ export default class OptionSelect extends Option {
    * @param isHidden - скрывать ли опцию
    * @param description - описание
    * @param anyData - любые данные
+   * @param handler - внешний обработчик
    */
-  constructor(id: string, type: string, label: string, options: SelectItem[], isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string) {
-    super(id, type, label, isRequired, isHidden, description, anyData);
+  constructor(id: string, type: string, label: string, options: SelectItem[], isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, handler?: any) {
+    super(id, type, label, isRequired, isHidden, description, anyData, handler);
     this.options = options;
   }
 
@@ -39,10 +40,11 @@ export default class OptionSelect extends Option {
    * @param isHidden - скрывать ли опцию
    * @param description - описание
    * @param anyData - любые данные
+   * @param handler - внешний обработчик
    */
-  public static buildOption({anyData, description, id, isRequired, isHidden, label, options, type}: OptionSelectBuilder): OptionSelect {
+  public static buildOption({anyData, description, id, isRequired, isHidden, label, options, type, handler}: OptionSelectBuilder): OptionSelect {
     const optionsObj = options.map(opt => SelectItem.buildItem(opt));
-    return new OptionSelect(id, type, label, optionsObj, isRequired, isHidden, description, anyData);
+    return new OptionSelect(id, type, label, optionsObj, isRequired, isHidden, description, anyData, handler);
   }
 
   /**

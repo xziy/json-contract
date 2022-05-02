@@ -18,15 +18,15 @@ var SelectItem_1 = require("./SelectItem");
 var Reason_1 = require("./Reason");
 var OptionSelect = (function (_super) {
     __extends(OptionSelect, _super);
-    function OptionSelect(id, type, label, options, isRequired, isHidden, description, anyData) {
-        var _this = _super.call(this, id, type, label, isRequired, isHidden, description, anyData) || this;
+    function OptionSelect(id, type, label, options, isRequired, isHidden, description, anyData, handler) {
+        var _this = _super.call(this, id, type, label, isRequired, isHidden, description, anyData, handler) || this;
         _this.options = options;
         return _this;
     }
     OptionSelect.buildOption = function (_a) {
-        var anyData = _a.anyData, description = _a.description, id = _a.id, isRequired = _a.isRequired, isHidden = _a.isHidden, label = _a.label, options = _a.options, type = _a.type;
+        var anyData = _a.anyData, description = _a.description, id = _a.id, isRequired = _a.isRequired, isHidden = _a.isHidden, label = _a.label, options = _a.options, type = _a.type, handler = _a.handler;
         var optionsObj = options.map(function (opt) { return SelectItem_1.default.buildItem(opt); });
-        return new OptionSelect(id, type, label, optionsObj, isRequired, isHidden, description, anyData);
+        return new OptionSelect(id, type, label, optionsObj, isRequired, isHidden, description, anyData, handler);
     };
     OptionSelect.prototype.validate = function (value, document) {
         if (value) {

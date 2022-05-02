@@ -33,6 +33,8 @@ export default class SelectItem {
    */
   form: Form;
 
+  handler: any;
+
   /**
    * @param id - id
    * @param label - подпись
@@ -40,14 +42,16 @@ export default class SelectItem {
    * @param action - [[Action]], который будет выполнен при выборе этого экземпляра
    * @param description - описание
    * @param anyData - другие данные
+   * @param handler - внейшний обработчик
    */
-  constructor(id: string, label: string, form: Form, action: Action, description?: string, anyData?: string) {
+  constructor(id: string, label: string, form: Form, action: Action, description?: string, anyData?: string, handler?: any) {
     this.id = id;
     this.label = label;
     this.description = description;
     this.form = form;
     this.action = action;
     this.anyData = anyData;
+    this.handler = handler;
   }
 
   /**
@@ -64,10 +68,11 @@ export default class SelectItem {
    * @param showOptionsById - массив id опций, которые нужно показать (см. [[Action]])
    * @param setCustomProperties - изменение свойств (см. [[Action]])
    * @param anyData - другие данные
+   * @param handler - внейшний обработчик
    */
   public static buildItem({
                             id, label, description, options, changeProperties, hideOptionsById, modifyDeliveryTime,
-                            modifyPrice, setDiscountInPercentage, showOptionsById, setCustomProperties, anyData
+                            modifyPrice, setDiscountInPercentage, showOptionsById, setCustomProperties, anyData, handler
                           }: SelectItemBuilder): SelectItem {
     if (options)
       options = options.map(opt => Option.getOption(opt));
@@ -83,7 +88,7 @@ export default class SelectItem {
       setCustomProperties
     });
 
-    return new SelectItem(id, label, formObj, actionObj, description, anyData);
+    return new SelectItem(id, label, formObj, actionObj, description, anyData, handler);
   }
 
   /**
@@ -94,7 +99,8 @@ export default class SelectItem {
       id: this.id,
       label: this.label,
       description: this.description,
-      anyData: this.anyData
+      anyData: this.anyData,
+      handler: this.handler
     };
     res.options = this.form.options.map(opt => opt.getJSON());
     res.modifyPrice = this.action.modifyPrice ? this.action.modifyPrice.getJSON() : undefined;
@@ -116,4 +122,5 @@ export interface SelectItemBuilder extends FormBuilder, ActionBuilder<ProductCon
   label: string;
   description?: string;
   anyData?: string
+  handler?: any
 }
