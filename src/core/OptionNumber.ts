@@ -36,6 +36,8 @@ export default class OptionNumber extends Option {
     this.min = min;
     this.max = max;
     this.regex = regex;
+    this.anyData = anyData;
+    this.handler = handler;
   }
 
   /**

@@ -22,6 +22,8 @@ var OptionNumber = (function (_super) {
         _this.min = min;
         _this.max = max;
         _this.regex = regex;
+        _this.anyData = anyData;
+        _this.handler = handler;
         return _this;
     }
     OptionNumber.buildOption = function (_a) {

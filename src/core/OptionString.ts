@@ -44,11 +44,13 @@ export default class OptionString extends Option {
    * @param regex - RegExp для проверки
    * @param handler - внешний обработчик
    */
-  constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, minLength?: number, maxLength?: number, regex?: string) {
-    super(id, type, label, isRequired, isHidden, description, anyData);
+  constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, minLength?: number, maxLength?: number, regex?: string, handler?: any) {
+    super(id, type, label, isRequired, isHidden, description, anyData, handler);
     this.minLength = minLength;
     this.maxLength = maxLength;
     this.regex = regex;
+    this.anyData = anyData;
+    this.handler = handler;
   }
 
   /**

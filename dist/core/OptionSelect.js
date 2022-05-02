@@ -21,6 +21,8 @@ var OptionSelect = (function (_super) {
     function OptionSelect(id, type, label, options, isRequired, isHidden, description, anyData, handler) {
         var _this = _super.call(this, id, type, label, isRequired, isHidden, description, anyData, handler) || this;
         _this.options = options;
+        _this.anyData = anyData;
+        _this.handler = handler;
         return _this;
     }
     OptionSelect.buildOption = function (_a) {

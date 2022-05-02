@@ -4,16 +4,17 @@ var Option_1 = require("./Option");
 var Form_1 = require("./Form");
 var Action_1 = require("./Action");
 var SelectItem = (function () {
-    function SelectItem(id, label, form, action, description, anyData) {
+    function SelectItem(id, label, form, action, description, anyData, handler) {
         this.id = id;
         this.label = label;
         this.description = description;
         this.form = form;
         this.action = action;
         this.anyData = anyData;
+        this.handler = handler;
     }
     SelectItem.buildItem = function (_a) {
-        var id = _a.id, label = _a.label, description = _a.description, options = _a.options, changeProperties = _a.changeProperties, hideOptionsById = _a.hideOptionsById, modifyDeliveryTime = _a.modifyDeliveryTime, modifyPrice = _a.modifyPrice, setDiscountInPercentage = _a.setDiscountInPercentage, showOptionsById = _a.showOptionsById, setCustomProperties = _a.setCustomProperties, anyData = _a.anyData;
+        var id = _a.id, label = _a.label, description = _a.description, options = _a.options, changeProperties = _a.changeProperties, hideOptionsById = _a.hideOptionsById, modifyDeliveryTime = _a.modifyDeliveryTime, modifyPrice = _a.modifyPrice, setDiscountInPercentage = _a.setDiscountInPercentage, showOptionsById = _a.showOptionsById, setCustomProperties = _a.setCustomProperties, anyData = _a.anyData, handler = _a.handler;
         if (options)
             options = options.map(function (opt) { return Option_1.default.getOption(opt); });
         var formObj = new Form_1.default(options);
@@ -26,14 +27,15 @@ var SelectItem = (function () {
             changeProperties: changeProperties,
             setCustomProperties: setCustomProperties
         });
-        return new SelectItem(id, label, formObj, actionObj, description, anyData);
+        return new SelectItem(id, label, formObj, actionObj, description, anyData, handler);
     };
     SelectItem.prototype.getJSON = function () {
         var res = {
             id: this.id,
             label: this.label,
             description: this.description,
-            anyData: this.anyData
+            anyData: this.anyData,
+            handler: this.handler
         };
         res.options = this.form.options.map(function (opt) { return opt.getJSON(); });
         res.modifyPrice = this.action.modifyPrice ? this.action.modifyPrice.getJSON() : undefined;

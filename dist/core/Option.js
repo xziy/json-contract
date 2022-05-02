@@ -9,9 +9,9 @@ var Option = (function () {
         this.label = label;
         this.description = description;
         this.anyData = anyData;
+        this.handler = handler;
         this.isRequired = isRequired || false;
         this.isHidden = isHidden || false;
-        this.handler = handler || undefined;
     }
     Option.buildOption = function (_a) {
         var id = _a.id, type = _a.type, label = _a.label, isRequired = _a.isRequired, isHidden = _a.isHidden, description = _a.description, anyData = _a.anyData, handler = _a.handler;

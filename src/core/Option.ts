@@ -64,9 +64,9 @@ export default class Option {
     this.label = label;
     this.description = description;
     this.anyData = anyData;
+    this.handler = handler;
     this.isRequired = isRequired || false;
     this.isHidden = isHidden || false;
-    this.handler = handler || undefined;
   }
 
   /**

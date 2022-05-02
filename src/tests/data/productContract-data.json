@@ -20,6 +20,11 @@
       "regex": "^[a-zA-Z0-9]+$",
       "label": "String option",
       "description": "String here",
+      "test": true,
+      "handler": {
+        "type": "color"
+      },
+      "anyData": "test",
       "isRequired": true,
       "isHidden": true
     },
@@ -29,6 +34,10 @@
       "description": "Number here",
       "type": "number",
       "maxLength": 3,
+      "handler": {
+        "type": "range"
+      },
+      "anyData": "test1",
       "regex": "^[0-9]+$"
     },
     {
@@ -37,6 +46,10 @@
       "description": "Select here",
       "type": "select",
       "isRequired": true,
+      "handler": {
+        "type": "radiobutton"
+      },
+      "anyData": "test1",
       "options": [
         {
           "id": "s-1",
