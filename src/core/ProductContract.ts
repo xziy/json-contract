@@ -84,7 +84,7 @@ export default class ProductContract extends Form implements ProductContractBuil
    * @param start - время начала работы
    * @param finish - время завершения работы
    * @param revision -
-   * @param deliveryTime - время поставки (ETA - hours)
+   * @param deliveryTime - время поставки (ETA - minutes)
    * @param args - иные параметры
    */
   constructor(options: Option[], name: string, locale: string, description: string, specificationMinVersion: number,
@@ -128,7 +128,7 @@ export default class ProductContract extends Form implements ProductContractBuil
    * @param start - время начала работы
    * @param finish - время завершения работы
    * @param revision -
-   * @param deliveryTime - время поставки (ETA - hours)
+   * @param deliveryTime - время поставки (ETA - minutes)
    * @param args - иные параметры
    */
   public static build({locale, name, options, badge, deliveryTime, currency, description, prefix,
