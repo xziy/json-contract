@@ -37,12 +37,17 @@ export default class Option {
    */
   anyData?: string;
 
+  /**
+   * Обработчик
+   */
+  handler?: any; 
 
   constructor(id: string, type: string, label: string)
   constructor(id: string, type: string, label: string, isRequired: boolean)
   constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean)
   constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string)
   constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string)
+  constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, handler?: any)
   /**
    * Если [[isRequired]] не передан, то он считается false. Аналогично [[isHidden]].
    * @param id - id
@@ -53,12 +58,13 @@ export default class Option {
    * @param description - описание
    * @param anyData - любые данные
    */
-  constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string) {
+  constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, handler?: any) {
     this.id = id;
     this.type = type;
     this.label = label;
     this.description = description;
     this.anyData = anyData;
+    this.handler = handler;
     this.isRequired = isRequired || false;
     this.isHidden = isHidden || false;
   }
@@ -73,8 +79,8 @@ export default class Option {
    * @param description - описание
    * @param anyData - любые данные
    */
-  public static buildOption({id, type, label, isRequired, isHidden, description, anyData}: Option): Option {
-    return new Option(id, type, label, isRequired, isHidden, description, anyData);
+  public static buildOption({id, type, label, isRequired, isHidden, description, anyData, handler}: Option): Option {
+    return new Option(id, type, label, isRequired, isHidden, description, anyData, handler);
   }
 
   /**

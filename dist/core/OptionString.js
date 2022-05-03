@@ -17,16 +17,18 @@ var Option_1 = require("./Option");
 var Reason_1 = require("./Reason");
 var OptionString = (function (_super) {
     __extends(OptionString, _super);
-    function OptionString(id, type, label, isRequired, isHidden, description, anyData, minLength, maxLength, regex) {
-        var _this = _super.call(this, id, type, label, isRequired, isHidden, description, anyData) || this;
+    function OptionString(id, type, label, isRequired, isHidden, description, anyData, minLength, maxLength, regex, handler) {
+        var _this = _super.call(this, id, type, label, isRequired, isHidden, description, anyData, handler) || this;
         _this.minLength = minLength;
         _this.maxLength = maxLength;
         _this.regex = regex;
+        _this.anyData = anyData;
+        _this.handler = handler;
         return _this;
     }
     OptionString.buildOption = function (_a) {
-        var anyData = _a.anyData, description = _a.description, id = _a.id, isRequired = _a.isRequired, isHidden = _a.isHidden, label = _a.label, maxLength = _a.maxLength, minLength = _a.minLength, regex = _a.regex, type = _a.type;
-        return new OptionString(id, type, label, isRequired, isHidden, description, anyData, minLength, maxLength, regex);
+        var anyData = _a.anyData, description = _a.description, id = _a.id, isRequired = _a.isRequired, isHidden = _a.isHidden, label = _a.label, maxLength = _a.maxLength, minLength = _a.minLength, regex = _a.regex, type = _a.type, handler = _a.handler;
+        return new OptionString(id, type, label, isRequired, isHidden, description, anyData, minLength, maxLength, regex, handler);
     };
     OptionString.prototype.validate = function (value) {
         if (value) {

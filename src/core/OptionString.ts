@@ -9,20 +9,28 @@ export default class OptionString extends Option {
    * Минимальная длина строки
    */
   minLength?: number;
+  
   /**
    * Максимальная длина строки
    */
   maxLength?: number;
+
   /**
    * RegExp для проверки значения
    */
   regex?: string;
+
+  /**
+   * External handler
+   */
+  handler?: any;
 
   constructor(id: string, type: string, label: string);
   constructor(id: string, type: string, label: string, isRequired: boolean);
   constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean);
   constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string);
   constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, minLength?: number, maxLength?: number, regex?: string);
+  constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, minLength?: number, maxLength?: number, regex?: string, handler?: any);
   /**
    * @param id - id
    * @param type - тип
@@ -34,12 +42,15 @@ export default class OptionString extends Option {
    * @param minLength - минимальная длина
    * @param maxLength - максимальная длина
    * @param regex - RegExp для проверки
+   * @param handler - внешний обработчик
    */
-  constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, minLength?: number, maxLength?: number, regex?: string) {
-    super(id, type, label, isRequired, isHidden, description, anyData);
+  constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, minLength?: number, maxLength?: number, regex?: string, handler?: any) {
+    super(id, type, label, isRequired, isHidden, description, anyData, handler);
     this.minLength = minLength;
     this.maxLength = maxLength;
     this.regex = regex;
+    this.anyData = anyData;
+    this.handler = handler;
   }
 
   /**
@@ -54,9 +65,10 @@ export default class OptionString extends Option {
    * @param minLength - минимальная длина
    * @param maxLength - максимальная длина
    * @param regex - RegExp для проверки
+   * @param handler - внешний обработчик
    */
-  public static buildOption({anyData, description, id, isRequired, isHidden, label, maxLength, minLength, regex, type}: OptionString): OptionString {
-    return new OptionString(id, type, label, isRequired, isHidden, description, anyData, minLength, maxLength, regex);
+  public static buildOption({anyData, description, id, isRequired, isHidden, label, maxLength, minLength, regex, type, handler}: OptionString): OptionString {
+    return new OptionString(id, type, label, isRequired, isHidden, description, anyData, minLength, maxLength, regex, handler);
   }
 
   /**

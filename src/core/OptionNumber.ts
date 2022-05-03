@@ -29,12 +29,15 @@ export default class OptionNumber extends Option {
    * @param min - минимальное значение
    * @param max - максимальное значение
    * @param regex - RegExp для проверки
+   * @param handler - Внешний обработчик
    */
-  constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, min?: number, max?: number, regex?: string) {
-    super(id, type, label, isRequired, isHidden, description, anyData);
+  constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, min?: number, max?: number, regex?: string, handler?: any) {
+    super(id, type, label, isRequired, isHidden, description, anyData, handler);
     this.min = min;
     this.max = max;
     this.regex = regex;
+    this.anyData = anyData;
+    this.handler = handler;
   }
 
   /**
@@ -49,9 +52,10 @@ export default class OptionNumber extends Option {
    * @param min - минимальное значение
    * @param max - максимальное значение
    * @param regex - RegExp для проверки
+   * @param handler - внешний обработчик
    */
-  public static buildOption({anyData, description, id, isRequired, isHidden, label, max, min, regex, type}: OptionNumber): OptionNumber {
-    return new OptionNumber(id, type, label, isRequired, isHidden, description, anyData, min, max, regex);
+  public static buildOption({anyData, description, id, isRequired, isHidden, label, max, min, regex, type, handler}: OptionNumber): OptionNumber {
+    return new OptionNumber(id, type, label, isRequired, isHidden, description, anyData, min, max, regex, handler);
   }
 
   /**

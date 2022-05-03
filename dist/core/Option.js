@@ -3,18 +3,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OptionTypes = void 0;
 var Reason_1 = require("./Reason");
 var Option = (function () {
-    function Option(id, type, label, isRequired, isHidden, description, anyData) {
+    function Option(id, type, label, isRequired, isHidden, description, anyData, handler) {
         this.id = id;
         this.type = type;
         this.label = label;
         this.description = description;
         this.anyData = anyData;
+        this.handler = handler;
         this.isRequired = isRequired || false;
         this.isHidden = isHidden || false;
     }
     Option.buildOption = function (_a) {
-        var id = _a.id, type = _a.type, label = _a.label, isRequired = _a.isRequired, isHidden = _a.isHidden, description = _a.description, anyData = _a.anyData;
-        return new Option(id, type, label, isRequired, isHidden, description, anyData);
+        var id = _a.id, type = _a.type, label = _a.label, isRequired = _a.isRequired, isHidden = _a.isHidden, description = _a.description, anyData = _a.anyData, handler = _a.handler;
+        return new Option(id, type, label, isRequired, isHidden, description, anyData, handler);
     };
     Option.getOption = function (data) {
         switch (data.type) {

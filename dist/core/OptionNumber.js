@@ -17,16 +17,18 @@ var Option_1 = require("./Option");
 var Reason_1 = require("./Reason");
 var OptionNumber = (function (_super) {
     __extends(OptionNumber, _super);
-    function OptionNumber(id, type, label, isRequired, isHidden, description, anyData, min, max, regex) {
-        var _this = _super.call(this, id, type, label, isRequired, isHidden, description, anyData) || this;
+    function OptionNumber(id, type, label, isRequired, isHidden, description, anyData, min, max, regex, handler) {
+        var _this = _super.call(this, id, type, label, isRequired, isHidden, description, anyData, handler) || this;
         _this.min = min;
         _this.max = max;
         _this.regex = regex;
+        _this.anyData = anyData;
+        _this.handler = handler;
         return _this;
     }
     OptionNumber.buildOption = function (_a) {
-        var anyData = _a.anyData, description = _a.description, id = _a.id, isRequired = _a.isRequired, isHidden = _a.isHidden, label = _a.label, max = _a.max, min = _a.min, regex = _a.regex, type = _a.type;
-        return new OptionNumber(id, type, label, isRequired, isHidden, description, anyData, min, max, regex);
+        var anyData = _a.anyData, description = _a.description, id = _a.id, isRequired = _a.isRequired, isHidden = _a.isHidden, label = _a.label, max = _a.max, min = _a.min, regex = _a.regex, type = _a.type, handler = _a.handler;
+        return new OptionNumber(id, type, label, isRequired, isHidden, description, anyData, min, max, regex, handler);
     };
     OptionNumber.prototype.validate = function (value) {
         if (value) {
