@@ -39,7 +39,7 @@ export default class ProductContractD extends ProductContract implements Product
    * @param discountAllowed - разрешение на применение скидок
    * @param discountCumulativeAllowed - разрешение на суммирование скидок
    * @param revision -
-   * @param deliveryTime - время доставки
+   * @param deliveryTime - время поставки (ETA - hours)
    * @param discounts -
    * @param args - иные параметры
    */
@@ -72,7 +72,7 @@ export default class ProductContractD extends ProductContract implements Product
    * @param discountAllowed - разрешение на применение скидок
    * @param discountCumulativeAllowed - разрешение на суммирование скидок
    * @param revision -
-   * @param deliveryTime - время доставки
+   * @param deliveryTime - время поставки (ETA - hours)
    * @param discounts -
    * @param args - иные параметры
    */

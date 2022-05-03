@@ -68,7 +68,7 @@ export default class Form implements FormBuilder {
   }
 
   /**
-   * Рассчитывает цену, время доставки, а так же редактирует productContractModified переданного [[Document]] в соответствии
+   * Рассчитывает цену, время поставки (ETA), а так же редактирует productContractModified переданного [[Document]] в соответствии
    * с выбранными [[OptionsSelect]]. Иными словами, этот метод активирует все [[Action]] для выбранных [[SelectItem]].
    * @param document - документ, который нужно обработать
    * @param contract - [[ProductContract]] который использовать для сброса. Если не передан, то используется productContract

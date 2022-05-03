@@ -49,7 +49,7 @@ export default class Option {
   constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string)
   constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, handler?: any)
   /**
-   * Если [[isRequired]] не передан, то он считается false. Аналогично [[isHidden]].
+   * Если [[isRequired]] не передан, то он считается true.
    * @param id - id
    * @param type - тип
    * @param label - подпись
@@ -65,7 +65,7 @@ export default class Option {
     this.description = description;
     this.anyData = anyData;
     this.handler = handler;
-    this.isRequired = isRequired || false;
+    this.isRequired = isRequired || true;
     this.isHidden = isHidden || false;
   }
 

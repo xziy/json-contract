@@ -141,7 +141,7 @@ export default class Document implements DocumentBuild {
   }
 
   /**
-   * Рассчитывает цену, время доставки, а так же редактирует [[productContractModified]] поле в соответствии с выбранными [[OptionsSelect]].
+   * Рассчитывает цену, время поставки (ETA), а так же редактирует [[productContractModified]] поле в соответствии с выбранными [[OptionsSelect]].
    * Иными словами, этот метод активирует все [[Action]] для выбранных [[OptionsSelect]]
    *
    * @param contract - [[ProductContract]] который использовать для сброса. Если не передан, то используется [[productContract]] поле

@@ -57,7 +57,7 @@ export default class DocumentD extends Document implements DocumentDiscountBuild
   /**
    * Применяет все активные для данного документа скидки. То есть проверяется, что они [[productContract]] и
    * [[productContractModified]] соответсвуют заданому [[DiscountContract]]. Если [[ProductContractD]] запрещает применять несколько скидок,
-   * то применяет только первую. После чего расчитывает цену, время доставки,
+   * то применяет только первую. После чего расчитывает цену, время поставки (ETA),
    * а так же редактирует [[productContractModified]] поле в соответствии с выбраными [[OptionsSelect]].
    * Иными словами, этот метод активирует все [[Action]] для выбраных [[OptionsSelect]]
    *

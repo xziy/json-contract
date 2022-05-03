@@ -3,7 +3,7 @@ import ProductContract from "./ProductContract";
 import Property from "./Property";
 
 /**
- * Описывает действия. Может менять поля ProductContract, стоимость, время доставки и свойство видимости Option
+ * Описывает действия. Может менять поля ProductContract, стоимость, время поставки (ETA) и свойство видимости Option
  */
 export default class Action implements ActionBuilder<ProductContract> {
   /**
