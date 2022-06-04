@@ -5,10 +5,21 @@
     "outDir": "./dist",
     "declaration": true,
     "strict": true,
-    "removeComments": true
-//    "outFile": "./dist/index.js"
+    "removeComments": true,
   },
   "exclude": [
     "node_modules"
   ]
 }
+// {
+//   "compilerOptions": {
+//     "module": "System",
+//     "lib": ["es5", "es6", "dom"],
+//     "rootDir": "./src/",
+//     "target": "es5",
+//     "declaration": true,
+//     "strict": true,
+//     "outFile": "./dist/index.js"
+//   },
+//   "exclude": ["node_modules" , "src/**/*.spec.ts"]
+// }

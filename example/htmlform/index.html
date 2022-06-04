@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>json-contract form example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.js" integrity="sha512-HNbo1d4BaJjXh+/e6q4enTyezg5wiXvY3p/9Vzb20NIvkJghZxhzaXeffbdJuuZSxFhJP87ORPadwmU9aN3wSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <h1>json-contract form example</h1>
+
+    <textarea id="json-contract" name="json-contract" rows="4" cols="50">
+        {
+            "name": "Test1",
+            "locale": "EN",
+            "description": "Simple test contract",
+            "specificationMinVersion": 1,
+            "prefix": "T1",
+            "badge": "test_1",
+            "price": 100,
+            "currency": "USD",
+            "start": 1611492655398,
+            "finish": 1711492655398,
+            "revision": 1,
+            "deliveryTime": 24,
+            "someSpecificData": "specific data",
+            "options": [
+              {
+                "id": "stringOption",
+                "type": "string",
+                "maxLength": 30,
+                "regex": "^[a-zA-Z0-9]+$",
+                "label": "String option",
+                "description": "String here",
+                "test": true,
+                "handler": {
+                  "type": "color"
+                },
+                "anyData": "test",
+                "isRequired": true,
+                "isHidden": true
+              },
+              {
+                "id": "numberOption",
+                "label": "Number option",
+                "description": "Number here",
+                "type": "number",
+                "maxLength": 3,
+                "handler": {
+                  "type": "range"
+                },
+                "anyData": "test1",
+                "regex": "^[0-9]+$"
+              },
+              {
+                "id": "selectOption",
+                "label": "Select option",
+                "description": "Select here",
+                "type": "select",
+                "isRequired": true,
+                "handler": {
+                  "type": "radiobutton"
+                },
+                "anyData": "test1",
+                "options": [
+                  {
+                    "id": "s-1",
+                    "type": "radio",
+                    "label": "option 1",
+                    "description": "First option",
+                    "anyData": "radio",
+                    "modifyDeliveryTime": {
+                      "increase": 2
+                    },
+                    "modifyPrice": {
+                      "increase": 5
+                    }
+                  },
+                  {
+                    "id": "s-2",
+                    "type": "radio",
+                    "label": "option 2",
+                    "description": "Second option",
+                    "anyData": "radio",
+                    "modifyDeliveryTime": {
+                      "decrease": 3
+                    },
+                    "modifyPrice": {
+                      "set": 7
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+    </textarea>
+
+    <div id="json-contract-form"></div>
+    
+    <script type="module">
+        import * as PC from "/build.js"
+    </script>
+
+    <script>
+      
+      console.log(PC)
+      let form = $("#json-contract-form");
+      var doc = [];
+
+      $("#json-contract").on("blur", function (e) {
+        parseTextarea($("#json-contract").val());
+      });
+      
+      parseTextarea($("#json-contract").val());
+
+
+      function parseTextarea(text) {
+        try {
+          contract = JSON.parse(text);
+          process(contract);
+        } catch (error) {
+          return form.html("Not valid json");
+        }
+      }
+
+      function process(contract) {
+        form.html("<div id='#label'></div>");
+        function setDocValueById(key, value) {
+          let count = 0;
+          let wasFound = false;
+
+          doc.forEach((item) => {
+            if (item.key === key) {
+              doc[count].value = value;
+              wasFound = true;
+            }
+            count += 1;
+          });
+
+          if (!wasFound) {
+            doc.push({ key: key, value: value });
+          }
+
+          console.log(doc);
+        }
+
+        function getDocValueById(key) {
+          console.log(doc);
+
+          let value;
+          doc.forEach((item) => {
+            if (item.id === key) value = item.value;
+          });
+          return value;
+        }
+
+        contract.options.forEach((option) => {
+          form.append(`<div id="${option.id}_label" class="${option.id} label">${option.label}</div>`);
+
+          $("#json-contract-form input").change(function () {
+            console.log($(this).val());
+            setDocValueById($(this).attr("id"), $(this).val());
+          });
+
+          switch (option.type) {
+            case "string":
+              form.append(`<input type="text" id="${option.id}_input" name="${option.id}" value="${getDocValueById(option.id) !== undefined ? getDocValueById(option.id) : ""}">`);
+              break;
+
+            case "number":
+              form.append(`<input type="number" id="${option.id}_input" name="${option.id} value="${getDocValueById(option.id) !== undefined ? getDocValueById(option.id) : 0}">`);
+
+              break;
+
+            case "select":
+              form.append(`<fieldset id="${option.id}_fieldset"></fieldset>`);
+              $(`#${option.id}_fieldset`).append(`<legend>${option.description}</legend>`);
+
+              option.options.forEach((item_option) => {
+                $(`#${option.id}_fieldset`).append(`<input type="radio" id="${item_option.id}" name="${option.id}" value="${item_option.id}">`);
+                $(`#${option.id}_fieldset`).append(`<label for="${item_option.id}">${item_option.label}</label>`);
+              });
+
+              $(`#${option.id}_fieldset input`).change(function () {
+                setDocValueById($(`#${option.id}_fieldset`).attr("id"), $(this).val());
+              });
+              break;
+            default:
+              break;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

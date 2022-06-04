@@ -48,7 +48,8 @@
           "description": "Some text here",
           "anyData": "radio",
           "modifyDeliveryTime": {
-            "increase": 12
+            "increase": 12,
+            "decrease": 1
           },
           "modifyPrice": {
             "increase": 15

@@ -1,0 +1,332 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/JSON-contract",
+    "JSON-contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "title": "JSON-contract",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "specificationMinVersion": {
+          "type": "integer"
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "badge": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "start": {
+          "type": "integer"
+        },
+        "finish": {
+          "type": "integer"
+        },
+        "revision": {
+          "type": "integer"
+        },
+        "deliveryTime": {
+          "type": "integer"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/OptionTypes/String"
+              },
+              {
+                "$ref": "#/OptionTypes/Number"
+              },
+              {
+                "$ref": "#/OptionTypes/Select"
+              }
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "badge",
+        "currency",
+        "deliveryTime",
+        "description",
+        "finish",
+        "locale",
+        "name",
+        "prefix",
+        "price",
+        "revision",
+        "specificationMinVersion",
+        "start",
+        "options"
+      ]
+    },
+    "OptionTypes": {
+      "String": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "#/Types/id"
+          },
+          "type": {
+            "$ref": "#/Types/type"
+          },
+          "label": {
+            "$ref": "#/Types/label"
+          },
+          "description": {
+            "$ref": "#/Types/description"
+          },
+          "handler": {
+            "$ref": "#/Types/handler"
+          },
+          "isRequired": {
+            "$ref": "#/Types/isRequired"
+          },
+          "regex": {
+            "$ref": "#/Types/regex"
+          },
+          "maxLength": {
+            "$ref": "#/Types/maxLength"
+          }
+        }
+      },
+      "Number": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "#/Types/id"
+          },
+          "type": {
+            "$ref": "#/Types/type"
+          },
+          "label": {
+            "$ref": "#/Types/label"
+          },
+          "description": {
+            "$ref": "#/Types/description"
+          },
+          "handler": {
+            "$ref": "#/Types/handler"
+          },
+          "isRequired": {
+            "$ref": "#/Types/isRequired"
+          },
+          "regex": {
+            "$ref": "#/Types/regex"
+          },
+          "maxLength": {
+            "$ref": "#/Types/maxLength"
+          },
+          "min": {
+            "$ref": "#/Types/min"
+          },
+          "max": {
+            "$ref": "#/Types/max"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "type"
+        ]
+      },
+      "Select": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "#/Types/id"
+          },
+          "type": {
+            "$ref": "#/Types/type"
+          },
+          "label": {
+            "$ref": "#/Types/label"
+          },
+          "description": {
+            "$ref": "#/Types/description"
+          },
+          "handler": {
+            "$ref": "#/Types/handler"
+          },
+          "isRequired": {
+            "$ref": "#/Types/isRequired"
+          },
+          "regex": {
+            "$ref": "#/Types/regex"
+          },
+          "maxLength": {
+            "$ref": "#/Types/maxLength"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/OptionTypes/Option"
+            },
+            "minItems": 2,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "type",
+          "options"
+        ],
+        "title": "Select"
+      },
+      "Option": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "maxLength": {
+            "type": "integer"
+          },
+          "regex": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "handler": {
+            "type": "string"
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "modifyDeliveryTime": {
+            "$ref": "#/Action/ModifyDeliveryTime"
+          },
+          "modifyPrice": {
+            "$ref": "#/Action/ModifyPrice"
+          },
+          "setCustomProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/Action/SetCustomProperty"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "type"
+        ],
+        "title": "Option"
+      }
+    },
+    "Action": {
+      "Changable": {
+        "type" : "object",
+        "additionalProperties": false,
+        "maxProperties": 1,
+        "properties" : {
+            "increase": {
+              "type": "integer",
+              "title": "Increase amount"
+            },
+            "decrease": {
+              "type": "integer",
+              "title": "Decrease amount"
+            },
+            "set": {
+              "type": "integer",
+              "title": "Increase amount"
+            }
+        }
+      },
+  
+  
+      "ModifyDeliveryTime": {
+        "$ref": "#/Action/Changable",
+        "title": "Change delivery time"
+      },
+      "ModifyPrice": {
+          "$ref": "#/Action/Changable",
+          "title": "Change price"
+      },
+  
+  
+      "SetCustomProperty": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "isManual": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "isManual"
+          ],
+          "title": "SetCustomProperty"
+      }
+    },
+  
+  
+    "Types": {
+      "id": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "string",
+          "number",
+          "select"
+        ]
+      },
+      "maxLength": {
+        "type": "integer"
+      },
+      "regex": {
+        "type": "string",
+        "format": "regex"
+      },
+      "label": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "handler": {
+        "type": "string"
+      },
+      "isRequired": {
+        "type": "boolean"
+      },
+      "min": {
+        "type": "integer"
+      },
+      "max": {
+        "type": "integer"
+      }
+    }
+  }

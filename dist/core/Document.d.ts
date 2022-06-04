@@ -18,6 +18,8 @@ export default class Document implements DocumentBuild {
     getValue(id: string): any;
     processing(contract?: ProductContract): boolean;
     dry(): DocumentDry;
+    private findOptionById;
+    private getOptionsOfSelectItem;
 }
 export interface DocumentBuild {
     productContract: ProductContract;

@@ -3,5 +3,6 @@ export default class Reason {
     label?: string;
     constructor(code: string, label?: string, anyData?: string);
     private _rejectOption?;
-    rejectOption: string | undefined;
+    get rejectOption(): string | undefined;
+    set rejectOption(value: string | undefined);
 }

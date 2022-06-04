@@ -6,7 +6,8 @@ const ProductContract = require('..').ProductContract;
 
 function log(str, label) {
   if (label)
-    console.log(label);
+  console.log( "_________________________");
+  console.log(label);
   console.dir(str, {depth: null});
 }
 
@@ -96,7 +97,8 @@ function test3() {
   const docJson1 = require('./documents/document3');
   docJson1.productContract = pcJson1;
   const doc1 = Document.build(docJson1);
-  log(doc1, 'Document1');
+
+  log(doc1.productContractModified, 'Document1');
 
   // in this document selected so-1 so deliveryTime increase 12, price increase 15 and front must show new options with
   // id "info" and "message"
@@ -105,11 +107,16 @@ function test3() {
   log(doc1, 'Document 1');
 
   log(doc1.addOption('select-option', 'so-2'), 'select option 2');
+  
+  // console.log(111 ,doc1)
+
 
   // reset previous changes, add custom property isManual, change prefix and hide options with id "message" and "info"
   // ("info" is option of so-1 item, "message" hide by this action)
   log(doc1.processing(), 'processing 2');
-  log(doc1, 'Document 2');
+
+  log(doc1.getRejectReason(), "REASON")
+  log(doc1, 'Document 2 !!!!!!!!!!');
 }
 
 /**
@@ -170,7 +177,7 @@ function test5() {
 }
 
 // test1();
-test2();
-// test3();
+// test2();
+test3();
 // test4();
 // test5();

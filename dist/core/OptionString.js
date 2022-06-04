@@ -19,8 +19,8 @@ var OptionString = (function (_super) {
     __extends(OptionString, _super);
     function OptionString(id, type, label, isRequired, isHidden, description, anyData, minLength, maxLength, regex, handler) {
         var _this = _super.call(this, id, type, label, isRequired, isHidden, description, anyData, handler) || this;
-        _this.minLength = minLength;
-        _this.maxLength = maxLength;
+        _this.minLength = minLength || 0;
+        _this.maxLength = maxLength || 100000;
         _this.regex = regex;
         _this.anyData = anyData;
         _this.handler = handler;

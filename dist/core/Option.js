@@ -10,7 +10,7 @@ var Option = (function () {
         this.description = description;
         this.anyData = anyData;
         this.handler = handler;
-        this.isRequired = isRequired || false;
+        this.isRequired = isRequired || true;
         this.isHidden = isHidden || false;
     }
     Option.buildOption = function (_a) {

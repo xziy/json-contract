@@ -10,7 +10,8 @@ export default class Action implements ActionBuilder<ProductContract> {
     setCustomProperties?: Property<object>[];
     constructor(setDiscountInPercentage?: number, modifyPrice?: Changeable, modifyDeliveryTime?: Changeable, hideOptionById?: string[], showOptionsById?: string[], changeProperties?: Property<ProductContract>[], setCustomProperties?: Property<any>[]);
     private _setDiscountInPercentage?;
-    setDiscountInPercentage: number | undefined;
+    get setDiscountInPercentage(): number | undefined;
+    set setDiscountInPercentage(value: number | undefined);
     static build({ setDiscountInPercentage, hideOptionsById, modifyDeliveryTime, modifyPrice, showOptionsById, changeProperties, setCustomProperties }: ActionBuilder<ProductContract>): Action;
     activate(contract: ProductContract): void;
 }

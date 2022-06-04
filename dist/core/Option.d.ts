@@ -7,12 +7,14 @@ export default class Option {
     isHidden: boolean;
     description?: string;
     anyData?: string;
+    handler?: any;
     constructor(id: string, type: string, label: string);
     constructor(id: string, type: string, label: string, isRequired: boolean);
     constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean);
     constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string);
     constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string);
-    static buildOption({ id, type, label, isRequired, isHidden, description, anyData }: Option): Option;
+    constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, handler?: any);
+    static buildOption({ id, type, label, isRequired, isHidden, description, anyData, handler }: Option): Option;
     static getOption<T extends Option>(data: T): Option;
     validate(value: any): boolean;
     getRejectReason(value: any): Reason | undefined;

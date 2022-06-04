@@ -46,8 +46,8 @@ export default class OptionString extends Option {
    */
   constructor(id: string, type: string, label: string, isRequired?: boolean, isHidden?: boolean, description?: string, anyData?: string, minLength?: number, maxLength?: number, regex?: string, handler?: any) {
     super(id, type, label, isRequired, isHidden, description, anyData, handler);
-    this.minLength = minLength;
-    this.maxLength = maxLength;
+    this.minLength = minLength || 0;
+    this.maxLength = maxLength || 100000;
     this.regex = regex;
     this.anyData = anyData;
     this.handler = handler;
