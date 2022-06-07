@@ -68,8 +68,8 @@ describe('Document', () => {
 
       numberValue.value = undefined;
 
-      document.check().should.be.true();
-      should(document.getRejectReason()).be.undefined();
+      document.check().should.be.false();
+      should(document.getRejectReason()).be.not.undefined();
     });
 
     describe('for number options', () => {
@@ -280,8 +280,8 @@ describe('Document', () => {
       });
 
       it('should return ok', () => {
-        document.check().should.be.true();
-        should(document.getRejectReason()).be.undefined();
+        document.check().should.be.false();
+        should(document.getRejectReason()).be.not.undefined();
       });
 
       it('should reject if number option is larger than max', () => {

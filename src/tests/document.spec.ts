@@ -60,7 +60,7 @@ describe('Document', () => {
       should(document.getRejectReason()).be.eql(reason);
     });
 
-    it('should return ok if number options not is required and is not set', () => {
+    it('should return not ok if number options is required and is not set', () => {
       const numberValue = document.values.find(v => v.id === 'numberOption');
       if (!numberValue) {
         throw new Error('There is not number option');
@@ -68,8 +68,8 @@ describe('Document', () => {
 
       numberValue.value = undefined;
 
-      document.check().should.be.true();
-      should(document.getRejectReason()).be.undefined();
+      document.check().should.be.false();
+      should(document.getRejectReason()).be.not.undefined();
     });
 
     describe('for number options', () => {
@@ -280,8 +280,8 @@ describe('Document', () => {
       });
 
       it('should return ok', () => {
-        document.check().should.be.true();
-        should(document.getRejectReason()).be.undefined();
+        document.check().should.be.false();
+        should(document.getRejectReason()).be.not.undefined();
       });
 
       it('should reject if number option is larger than max', () => {
@@ -333,6 +333,16 @@ describe('Document', () => {
 
     });
 
+  });
+
+
+  it('should show unfilled', () => {
+    const document = Document.build({
+      values: [],
+      productContract: simpleProductContractData
+    });
+
+    document.getNextUnfilled().id.should.be.equal("stringOption");
   });
 
   it('should add option', () => {
