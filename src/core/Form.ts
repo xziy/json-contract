@@ -74,7 +74,7 @@ export default class Form implements FormBuilder {
    public unfilledFields(document: Document): Option[]{
     let unfilledFields: Option[] = [];
     for (let option of this.options) {
-      let value = document.values.filter(v => v.id === option.id)[0] || {} as Value;
+      let value = document.values.filter(v => v.id === option.id)[0];
       if (!value) unfilledFields.push(option)
     }
     return unfilledFields;

@@ -34,7 +34,7 @@
       "description": "Number here",
       "type": "number",
       "regex": "^[0-9]+$",
-      "isRequired": false,     
+      "isRequired": true,     
       "handler": {
         "type": "range"
       },
