@@ -1,5 +1,7 @@
 # json-contract
 
+<span class="badge-npmversion"><a href="https://npmjs.org/package/json-contract" title="View this project on NPM"><img src="https://img.shields.io/npm/v/json-contract.svg" alt="NPM version" /></a></span>
+
 ## Установка
 Модуль может быть использовать как для NodeJs, так и для браузера. Уставнока с помощью npm:
 ```bash
