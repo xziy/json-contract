@@ -335,6 +335,16 @@ describe('Document', () => {
 
   });
 
+
+  it('should show unfilled', () => {
+    const document = Document.build({
+      values: [],
+      productContract: simpleProductContractData
+    });
+
+    document.getNextUnfilled().id.should.be.equal("stringOption");
+  });
+
   it('should add option', () => {
     const document = Document.build({
       values: [],

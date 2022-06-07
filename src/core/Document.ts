@@ -94,6 +94,14 @@ export default class Document implements DocumentBuild {
   }
 
   /**
+   * Возвращает следующую опцию которую надо заполнить
+   */
+   public getNextUnfilled(): Option {
+    return (this.productContract.unfilledFields(this))[0];
+  }
+
+
+  /**
    * Запись новой пары <id опции>:<значение> или перезапись старой. Если значение не валидно происходит отказ, иначе
    * запись и выполнение действий, если это [[OptionsSelect]]
    *
