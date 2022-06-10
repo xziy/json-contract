@@ -87,8 +87,8 @@ describe('Document', function () {
                 throw new Error('There is not number option');
             }
             numberValue.value = undefined;
-            document.check().should.be.true();
-            should(document.getRejectReason()).be.undefined();
+            document.check().should.be.false();
+            should(document.getRejectReason()).be.not.undefined();
         });
         describe('for number options', function () {
             beforeEach(function () {
@@ -257,8 +257,8 @@ describe('Document', function () {
                 });
             });
             it('should return ok', function () {
-                document.check().should.be.true();
-                should(document.getRejectReason()).be.undefined();
+                document.check().should.be.false();
+                should(document.getRejectReason()).be.not.undefined();
             });
             it('should reject if number option is larger than max', function () {
                 var numberValue = document.values.find(function (v) { return v.id === 'numberOptionRequired'; });

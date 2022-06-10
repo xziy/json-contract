@@ -56,6 +56,19 @@ var Form = (function () {
         }
         return undefined;
     };
+    Form.prototype.unfilledFields = function (document) {
+        var unfilledFields = [];
+        var _loop_3 = function (option) {
+            var value = document.values.filter(function (v) { return v.id === option.id; })[0];
+            if (!value)
+                unfilledFields.push(option);
+        };
+        for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
+            var option = _a[_i];
+            _loop_3(option);
+        }
+        return unfilledFields;
+    };
     Form.prototype.processing = function (document, contract) {
         document.productContractModified = (contract || document.productContract).clone();
         var modifiers = this.getModifiers(document);

@@ -1,6 +1,7 @@
 import ProductContract from "./ProductContract";
 import Reason from "./Reason";
 import Property from "./Property";
+import Option from "./Option";
 export default class Document implements DocumentBuild {
     productContract: ProductContract;
     controlHash: string;
@@ -14,6 +15,7 @@ export default class Document implements DocumentBuild {
     static build({ productContract, values, ...args }: DocumentBuild): Document;
     check(): boolean;
     getRejectReason(): Reason | undefined;
+    getNextUnfilled(): Option;
     addOption(id: string, value: any): boolean;
     getValue(id: string): any;
     processing(contract?: ProductContract): boolean;

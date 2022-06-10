@@ -81,14 +81,14 @@ describe('Document', function () {
             reason.rejectOption = 'selectOption';
             should(document.getRejectReason()).be.eql(reason);
         });
-        it('should return ok if number options not is required and is not set', function () {
+        it('should return not ok if number options is required and is not set', function () {
             var numberValue = document.values.find(function (v) { return v.id === 'numberOption'; });
             if (!numberValue) {
                 throw new Error('There is not number option');
             }
             numberValue.value = undefined;
-            document.check().should.be.true();
-            should(document.getRejectReason()).be.undefined();
+            document.check().should.be.false();
+            should(document.getRejectReason()).be.not.undefined();
         });
         describe('for number options', function () {
             beforeEach(function () {
@@ -257,8 +257,8 @@ describe('Document', function () {
                 });
             });
             it('should return ok', function () {
-                document.check().should.be.true();
-                should(document.getRejectReason()).be.undefined();
+                document.check().should.be.false();
+                should(document.getRejectReason()).be.not.undefined();
             });
             it('should reject if number option is larger than max', function () {
                 var numberValue = document.values.find(function (v) { return v.id === 'numberOptionRequired'; });
@@ -304,6 +304,13 @@ describe('Document', function () {
                 });
             }); });
         });
+    });
+    it('should show unfilled', function () {
+        var document = __1.Document.build({
+            values: [],
+            productContract: simpleProductContractData
+        });
+        document.getNextUnfilled().id.should.be.equal("stringOption");
     });
     it('should add option', function () {
         var document = __1.Document.build({

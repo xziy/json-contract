@@ -42,6 +42,9 @@ var Document = (function () {
     Document.prototype.getRejectReason = function () {
         return this.productContract.getRejectReason(this);
     };
+    Document.prototype.getNextUnfilled = function () {
+        return (this.productContract.unfilledFields(this))[0];
+    };
     Document.prototype.addOption = function (id, value) {
         var option = this.findOptionById(id, this.productContract.options);
         if (!option)
