@@ -78,6 +78,14 @@
           }
         }
       ]
+    },
+    {
+      "id": "oneMoreString",
+      "type": "string",
+      "maxLength": 30,
+      "label": "String option",
+      "description": "String here",
+      "isRequired": false
     }
   ]
 }

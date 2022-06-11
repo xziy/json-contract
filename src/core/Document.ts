@@ -110,12 +110,13 @@ export default class Document implements DocumentBuild {
    */
   public addOption(id: string, value: any): boolean {
     const option = this.findOptionById(id, this.productContract.options);
-
     if (!option)
       return false;
 
-    if (!option.validate(value))
+      option.validate(value)
+    if (!option.validate(value)) {
       return false;
+    }
 
     const oldValue = this.values.find(v => v.id === id);
     if (oldValue) {
@@ -185,7 +186,7 @@ export default class Document implements DocumentBuild {
         return opt;
       }
       if (opt.type === OptionTypes.SELECT) {
-        const selected = (<OptionSelect>opt).getSelected(this.getValue(opt.id));
+        const selected = (<OptionSelect>opt).getSelected(this.getValue(id));
         if (selected) {
           return this.findOptionById(id, selected.form.options);
         }

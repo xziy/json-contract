@@ -38,6 +38,7 @@ export default class OptionNumber extends Option {
     this.regex = regex;
     this.anyData = anyData;
     this.handler = handler;
+    this.isRequired = isRequired !== undefined ? isRequired : true;
   }
 
   /**

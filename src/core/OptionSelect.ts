@@ -30,6 +30,8 @@ export default class OptionSelect extends Option {
     this.options = options;
     this.anyData = anyData;
     this.handler = handler;
+    this.isRequired = true;
+
   }
 
   /**
@@ -106,10 +108,10 @@ export default class OptionSelect extends Option {
 
   /**
    * Возвращает [[SelectItem]] для заданного значения
-   * @param value - значение
+   * @param id - ID
    */
-  public getSelected(value: any): SelectItem | undefined {
-    return this.options.find(opt => opt.id === value);
+  public getSelected(id: any): SelectItem | undefined {
+    return this.options.find(opt => opt.id === id);
   }
 
   /**

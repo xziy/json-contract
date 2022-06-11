@@ -41,7 +41,7 @@ describe('Document', () => {
       }
 
       stringValue.value = undefined;
-
+      console.log(document.productContract.options,document.getRejectReason())
       document.check().should.be.true();
       should(document.getRejectReason()).be.undefined();
     });
@@ -364,19 +364,28 @@ describe('Document', () => {
     it('should add option in select options', () => {
       const document = Document.build({
         values: [],
-        productContract: selectProductContractComplex
+        productContract: simpleProductContractData
       });
 
-      document.addOption('selectOption', 'selectWithNumberString').should.be.true();
-      document.addOption('numberOptionRequired', 5).should.be.true();
+      document.addOption('selectOption', 's-1').should.be.true();
+      document.addOption('numberOption', 1).should.be.true();
 
       document.values.should.match([{
         id: 'selectOption',
-        value: 'selectWithNumberString'
+        value: 's-1'
       }, {
-        id: 'numberOptionRequired',
-        value: 5
+        id: 'numberOption',
+        value: 1
       }]);
+    });
+
+    /** Maded for fixing bug: addOption not work for options after select */
+    it('should add option in last and not select options', () => {
+      const document = Document.build({
+        values: [],
+        productContract: simpleProductContractData
+      });
+      document.addOption('oneMoreString', "just string").should.be.true();
     });
 
     it('should reject if option not found', () => {
@@ -404,18 +413,18 @@ describe('Document', () => {
     it('should update value if it has been set previously', () => {
       const document = Document.build({
         values: [],
-        productContract: selectProductContractComplex
+        productContract: simpleProductContractData
       });
 
-      document.addOption('selectOption', 'selectWithNumberString').should.be.true();
-      document.addOption('numberOptionRequired', 5).should.be.true();
-      document.addOption('numberOptionRequired', 7).should.be.true();
+      document.addOption('selectOption', 's-1').should.be.true();
+      document.addOption('numberOption', 5).should.be.true();
+      document.addOption('numberOption', 7).should.be.true();
 
       document.values.should.match([{
         id: 'selectOption',
-        value: 'selectWithNumberString'
+        value: 's-1'
       }, {
-        id: 'numberOptionRequired',
+        id: 'numberOption',
         value: 7
       }]);
     });
@@ -423,29 +432,28 @@ describe('Document', () => {
     it('should remove unselected options', () => {
       const document = Document.build({
         values: [],
-        productContract: selectProductContractComplex
+        productContract: simpleProductContractData
       });
 
-      document.addOption('selectOption', 'selectWithNumberString').should.be.true();
-      document.addOption('numberOptionRequired', 5).should.be.true();
+      document.addOption('selectOption', 's-1').should.be.true();
+      document.addOption('numberOption', 5).should.be.true();
 
       document.values.should.match([{
         id: 'selectOption',
-        value: 'selectWithNumberString'
+        value: 's-1'
       }, {
-        id: 'numberOptionRequired',
+        id: 'numberOption',
         value: 5
       }]);
 
-      document.addOption('selectOption', 'selectWithSelect').should.be.true();
-      document.addOption('selectOptionInner', 's-1').should.be.true();
+      document.addOption('selectOption', 's-2').should.be.true();
 
       document.values.should.match([{
         id: 'selectOption',
-        value: 'selectWithSelect'
+        value: 's-2'
       }, {
-        id: 'selectOptionInner',
-        value: 's-1'
+        id: 'numberOption',
+        value: 5
       }]);
     });
 
