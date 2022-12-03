@@ -62,7 +62,8 @@
           },
           "modifyPrice": {
             "increase": 5
-          }
+          },
+          "hideOptionsById": ["numberOption"]
         },
         {
           "id": "s-2",
