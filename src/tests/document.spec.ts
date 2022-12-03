@@ -463,6 +463,22 @@ describe('Document', () => {
 
       });
 
+      it('should change hidden state', () => {
+        const document = Document.build({
+          values: [],
+          productContract: simpleProductContractData
+        });
+
+        document.addOption('selectOption', 's-1').should.be.true();
+
+        const option = document.productContractModified.options.find(opt => opt.id === 'numberOption');
+        should(option).not.be.undefined();
+
+        if (option) {
+          option.isHidden.should.be.true();
+        }
+      });
+
     });
 
   });
