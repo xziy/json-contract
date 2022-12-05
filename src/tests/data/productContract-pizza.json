@@ -1,0 +1,282 @@
+{
+  "name": "Pizza Example",
+  "locale": "EN",
+  "description": "Here you math delivery data for you pizza",
+  "specificationMinVersion": 1,
+  "prefix": "E1",
+  "badge": "PIZZA",
+  "price": 10,
+  "currency": "USD",
+  "start": 1572474505,
+  "finish": 1672474505,
+  "revision": 1,
+  "deliveryTime": 40,
+  "options": [
+    {
+      "id": "name",
+      "type": "string",
+      "maxLength": 36,
+      "regex": "^[a-zA-Z]+$",
+      "label": "Your account name",
+      "description": "Some text here",
+      "isRequired": true
+    },
+    {
+      "id": "password",
+      "type": "string",
+      "handler": {
+        "type": "password"
+      },
+      "maxLength": 36,
+      "regex": "^[a-zA-Z]+$",
+      "label": "Your account password",
+      "description": "Some text here",
+      "isRequired": true
+    },
+    {
+      "id": "textarea-component-id",
+      "type": "string",
+      "handler": {
+        "type": "textarea"
+      },
+      "maxLength": 36,
+      "regex": "^[a-zA-Z]+$",
+      "label": "Your comment here for delivery service",
+      "description": "Some text here",
+      "isRequired": true
+    },
+    {
+      "id": "howmany",
+      "label": "How Many?",
+      "description": "Some text here",
+      "type": "number",
+      "maxLength": 3,
+      "min": -1,
+      "max": 999,
+      "regex": "[0-9]",
+      "isRequired": true
+    },
+    {
+      "id": "selects-option",
+      "label": "manual?",
+      "description": "Some text here",
+      "type": "select",
+      "options": [
+        {
+          "id": "s-1",
+          "type": "radio",
+          "label": "chicken pizza",
+          "description": "Some text here",
+          "modifyPrice": {
+            "set": 15
+          },
+          "modifyDeliveryTime": {
+            "set": 30
+          }
+        },
+        {
+          "id": "s-2",
+          "type": "radio",
+          "label": "mushroom pizza",
+          "description": "Some text here",
+          "modifyDeliveryTime": {
+            "set": 40
+          },
+          "modifyPrice": {
+            "set": 25
+          },
+          "setCustomProperties": [
+            {
+              "isManual": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "color",
+      "type": "string",
+      "handler": {
+        "type": "color"
+      },
+      "maxLength": 36,
+      "regex": "^[a-zA-Z]+$",
+      "label": "Choose color for your gift sticker",
+      "description": "Some text here",
+      "isRequired": true
+    },
+    {
+      "id": "dropdown",
+      "label": "Choose sauce",
+      "description": "Some text here",
+      "type": "select",
+      "handler": {
+        "type": "dropdown"
+      },
+      "options": [
+        {
+          "id": "s-1",
+          "type": "dropdown",
+          "label": "cheese sauce",
+          "description": "Some text here",
+          "modifyPrice": {
+            "increase": 3
+          }
+        },
+        {
+          "id": "s-2",
+          "type": "dropdown",
+          "label": "garlic sauce",
+          "description": "Some text here",
+          "modifyPrice": {
+            "increase": 1
+          },
+          "setCustomProperties": [
+            {
+              "isManual": true
+            }
+          ]
+        }
+      ]
+    },
+    
+    {
+      "id": "tabs",
+      "label": "Payment method",
+      "description": "Some text here",
+      "type": "select",
+      "options": [
+        {
+          "id": "s-1",
+          "type": "radio",
+          "label": "Cash",
+          "description": "Pay to delivery man",
+          "modifyDeliveryTime": {
+            "decrease": 12
+          },
+          "hideOptionsById": ["numberOption"],
+          "modifyPrice": {
+            "set": 120
+          },
+          "setCustomProperties": [
+            {
+              "isManual": true
+            }
+          ]
+        },
+        {
+          "id": "s-2",
+          "type": "radio",
+          "label": "Credit card",
+          "description": "Pay now",
+          "modifyDeliveryTime": {
+            "decrease": 17
+          },
+          "showOptionsById": ["numberOption"],
+          "modifyPrice": {
+            "increase": 15
+          }
+        },
+        {
+          "id": "s-3",
+          "type": "radio",
+          "label": "Bonuses",
+          "description": "Spent from your bonus account",
+          "hideOptionsById": ["slider"],
+          "modifyDeliveryTime": {
+            "increase": 12
+          },
+          "modifyPrice": {
+            "increase": 15
+          }
+        }
+      ]
+    },
+    {
+      "id": "numberOption",
+      "label": "Tips? (centes)",
+      "description": "Some text here",
+      "type": "number",
+      "maxLength": 3,
+      "min": 0,
+      "max": 999,
+      "regex": "[0-9]",
+      "isRequired": false,
+      "handler": {
+        "type": "numberSlider"
+      }
+    },
+    {
+      "id": "image-upload-id",
+      "type": "string",
+      "maxLength": 36,
+      "regex": "^[a-zA-Z]+$",
+      "label": "image-upload",
+      "description": "Some text here",
+      "isRequired": true,
+      "handler": {
+        "type": "imageUpload",
+        "images": {
+          "imageId1": {
+            "types": ["jpg", "jpeg", "png"],
+            "size": {
+              "height": 100,
+              "width": 100
+            },
+            "maxFileSize": 1000000
+          }
+        }
+      }
+    },
+    {
+      "id": "range-id",
+      "type": "string",
+      "maxLength": 36,
+      "regex": "^[a-zA-Z]+$",
+      "label": "Pick delivery time range (minutes)",
+      "description": "Some text here",
+      "isRequired": true,
+      "handler": {
+        "type": "range",
+        "range": {
+          "min": 50,
+          "max": 360
+        }
+      }
+    },
+    {
+      "id": "file-upload-id",
+      "type": "string",
+      "maxLength": 36,
+      "regex": "^[a-zA-Z]+$",
+      "label": "file-upload",
+      "description": "Some text here",
+      "isRequired": true,
+      "handler": {
+        "type": "fileUpload",
+        "files": {
+          "types": ["pdf", "txt", "doc"],
+          "maxFileSize": 10000000,
+          "maxFilesCount": 10
+        }
+      }
+    },
+    {
+      "id": "date-picker-id",
+      "type": "string",
+      "maxLength": 36,
+      "regex": "^[a-zA-Z]+$",
+      "label": "Pick delivery date",
+      "description": "Some text here",
+      "isRequired": true,
+      "handler": {
+        "type": "datePicker",
+        "date": {
+          "max": "",
+          "min": "",
+          "timeSelect": true
+        }
+      }
+    }
+  ]
+}

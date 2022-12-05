@@ -7,6 +7,8 @@ import Reason from '../core/Reason';
 const document1Data = require('./data/document1-data.json');
 const document1Expected = require('./data/document1-expected.json');
 const simpleProductContractData = require('./data/productContract-data.json');
+const simpleProductContract2Data = require('./data/productContract-data2.json');
+const pizzaProductContractData = require('./data/productContract-pizza.json');
 const simpleProductContractExpected = require('./data/productContract-expected.json');
 const numberProductContract = require('./data/productContract-with-number-option.json');
 const stringProductContract = require('./data/productContract-with-string-option.json');
@@ -466,19 +468,30 @@ describe('Document', () => {
       it('should change hidden state', () => {
         const document = Document.build({
           values: [],
-          productContract: simpleProductContractData
+          productContract: simpleProductContract2Data
         });
 
+        // hideOptionsById
         document.addOption('selectOption', 's-1').should.be.true();
 
-        const option = document.productContractModified.options.find(opt => opt.id === 'numberOption');
+        let option = document.productContractModified.options.find(opt => opt.id === 'numberOption');
         should(option).not.be.undefined();
 
         if (option) {
           option.isHidden.should.be.true();
         }
-      });
 
+        console.log(document)
+        // showOptionsById
+        document.addOption('selectOption', 's-2').should.be.true();
+
+        option = document.productContractModified.options.find(opt => opt.id === 'numberOption');
+        should(option).not.be.undefined();
+
+        if (option) {
+          option.isHidden.should.be.false();
+        }
+      });
     });
 
   });

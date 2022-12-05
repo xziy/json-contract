@@ -41,42 +41,60 @@
       "regex": "^[0-9]+$"
     },
     {
-      "id": "selectOption",
-      "label": "Select option",
-      "description": "Select here",
+      "label": "Payment method",
+      "description": "Some text here",
       "type": "select",
+      
+      "id": "selectOption",
       "isRequired": true,
       "handler": {
         "type": "radiobutton"
       },
       "anyData": "test1",
+      
       "options": [
         {
           "id": "s-1",
           "type": "radio",
-          "label": "option 1",
-          "description": "First option",
-          "anyData": "radio",
+          "label": "Cash",
+          "description": "Pay to delivery man",
           "modifyDeliveryTime": {
-            "increase": 2
+            "decrease": 12
           },
+          "hideOptionsById": ["numberOption"],
           "modifyPrice": {
-            "increase": 5
+            "set": 120
           },
-          "hideOptionsById": ["numberOption"]
+          "setCustomProperties": [
+            {
+              "isManual": true
+            }
+          ]
         },
         {
           "id": "s-2",
           "type": "radio",
-          "label": "option 2",
-          "description": "Second option",
-          "anyData": "radio",
+          "label": "Credit card",
+          "description": "Pay now",
           "modifyDeliveryTime": {
-            "decrease": 3
+            "decrease": 17
           },
           "showOptionsById": ["numberOption"],
           "modifyPrice": {
-            "set": 7
+            "increase": 15
+          }
+        },
+        {
+          "id": "s-3",
+          "type": "radio",
+          "label": "Bonuses",
+          "description": "Spent from your bonus account",
+          "hideOptionsById": ["slider"],
+          "modifyDeliveryTime": {
+            "increase": 12
+          },
+          "modifyPrice": {
+            "increase": 15
           }
         }
       ]
