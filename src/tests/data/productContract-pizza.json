@@ -141,7 +141,7 @@
     },
     
     {
-      "id": "tabs",
+      "id": "selectOption",
       "label": "Payment method",
       "description": "Some text here",
       "type": "select",
@@ -182,7 +182,7 @@
           "type": "radio",
           "label": "Bonuses",
           "description": "Spent from your bonus account",
-          "hideOptionsById": ["slider"],
+          "hideOptionsById": ["numberOption"],
           "modifyDeliveryTime": {
             "increase": 12
           },

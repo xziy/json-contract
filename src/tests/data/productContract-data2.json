@@ -89,7 +89,7 @@
           "type": "radio",
           "label": "Bonuses",
           "description": "Spent from your bonus account",
-          "hideOptionsById": ["slider"],
+          "hideOptionsById": ["numberOption"],
           "modifyDeliveryTime": {
             "increase": 12
           },

@@ -472,24 +472,24 @@ describe('Document', () => {
         });
 
         // hideOptionsById
-        document.addOption('selectOption', 's-1').should.be.true();
+        document.addOption('selectOption', 's-2').should.be.true();
 
         let option = document.productContractModified.options.find(opt => opt.id === 'numberOption');
         should(option).not.be.undefined();
 
         if (option) {
-          option.isHidden.should.be.true();
+          option.isHidden.should.be.false();
         }
 
         console.log(document)
         // showOptionsById
-        document.addOption('selectOption', 's-2').should.be.true();
+        document.addOption('selectOption', 's-1').should.be.true();
 
         option = document.productContractModified.options.find(opt => opt.id === 'numberOption');
         should(option).not.be.undefined();
 
         if (option) {
-          option.isHidden.should.be.false();
+          option.isHidden.should.be.true();
         }
       });
     });
