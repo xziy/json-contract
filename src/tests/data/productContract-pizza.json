@@ -141,10 +141,29 @@
     },
     
     {
-      "id": "selectOption",
+      "id": "numberOption",
+      "label": "Number option",
+      "description": "Number here",
+      "type": "number",
+      "maxLength": 3,
+      "handler": {
+        "type": "range"
+      },
+      "anyData": "test1",
+      "regex": "^[0-9]+$"
+    },
+    {
       "label": "Payment method",
       "description": "Some text here",
       "type": "select",
+      
+      "id": "selectOption",
+      "isRequired": true,
+      "handler": {
+        "type": "radiobutton"
+      },
+      "anyData": "test1",
+      
       "options": [
         {
           "id": "s-1",
@@ -192,20 +211,9 @@
         }
       ]
     },
-    {
-      "id": "numberOption",
-      "label": "Tips? (centes)",
-      "description": "Some text here",
-      "type": "number",
-      "maxLength": 3,
-      "min": 0,
-      "max": 999,
-      "regex": "[0-9]",
-      "isRequired": false,
-      "handler": {
-        "type": "numberSlider"
-      }
-    },
+
+
+    
     {
       "id": "image-upload-id",
       "type": "string",

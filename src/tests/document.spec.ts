@@ -468,7 +468,7 @@ describe('Document', () => {
       it('should change hidden state', () => {
         const document = Document.build({
           values: [],
-          productContract: simpleProductContract2Data
+          productContract: pizzaProductContractData//simpleProductContract2Data
         });
 
         // hideOptionsById
