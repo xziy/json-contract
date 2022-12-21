@@ -6,6 +6,7 @@
     "declaration": true,
     "strict": true,
     "removeComments": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules",     
